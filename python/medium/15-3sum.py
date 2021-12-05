@@ -20,7 +20,7 @@ class Solution:
        result [-1,-1,2] [-1,0,1]
 
 
-        TC O(n^2), using set for seen values and set for keeping all duplicate hashes
+        TC O(n^2), using map for seen values and set for keeping all duplicate hashes
         SC O(2N)
         """
         triplets = []
@@ -28,17 +28,21 @@ class Solution:
         duplicates = set()
         seen = {}
         for i in range(n):
-            if nums[i] not in duplicates:
-                duplicates.add(nums[i])
+            val1 = nums[i]
+            if val1 not in duplicates:  # this is to cover TLE for  test like [0,0,0,0,0,0]
+                duplicates.add(val1)
 
                 for j in range(i + 1, n):
-                    value = 0 - nums[i] - nums[j]
-                    # hash_val = map(str, sorted([nums[i], value, nums[j]]))
-                    # hash_val = "".join(hash_val)
-                    if value in seen and seen[value] == i:
-                        triplets.append([nums[i], value, nums[j]])
-                    # duplicates.add(hash_val)
-                    seen[value] = i
+                    val2 = nums[j]
+                    val3 = 0 - val1 - val2
+
+                    hash_val = map(str, sorted([val1, val2, val3]))
+                    hash_val = "".join(hash_val)
+
+                    if val3 in seen and seen[val3] == i and hash_val not in duplicates:
+                        triplets.append([val1, val2, val3])
+                        duplicates.add(hash_val)
+                    seen[val2] = i  # marking this value as seen for current for loop
 
         return triplets
 
