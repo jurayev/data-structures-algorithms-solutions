@@ -6,6 +6,31 @@
 class Solution:
     def insertionSortList(self, head: Optional[ListNode]) -> Optional[ListNode]:
         """
+        4 -> 2 -> 1 -> 3 -> None
+                       ^
+        
+    -inf 1 -> 2 -> 4 -> None
+              ^ 
+        """
+        
+        start_node = ListNode()
+        curr = head
+        while curr:
+            sorted_node = start_node
+            while sorted_node.next and sorted_node.next.val < curr.val:
+                sorted_node = sorted_node.next
+            
+            temp = curr.next
+            curr.next = sorted_node.next
+            sorted_node.next = curr
+            curr = temp
+        
+        return start_node.next
+        
+        
+        
+    def insertionSortList1(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        """
         Examples:
         
         in =     4 -> 2 -> 1 -> 3 -> None
