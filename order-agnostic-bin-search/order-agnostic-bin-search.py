@@ -1,5 +1,4 @@
 def binary_search(arr, key):
-    # TODO: Write your code here
     """
     target = 1
     [1, 2, 3, 4, 5, 6, 7]
