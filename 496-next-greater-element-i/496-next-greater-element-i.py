@@ -1,5 +1,5 @@
 class Solution:
-    def nextGreaterElement(self, nums1: List[int], nums2: List[int]) -> List[int]:
+    def nextGreaterElement2(self, nums1: List[int], nums2: List[int]) -> List[int]:
         """               0 1 2 3
         [4,1,2], nums2 = [1,0,3,4,2]
         
@@ -35,7 +35,7 @@ class Solution:
         return next_els
     
 
-    def nextGreaterElement1(self, nums1: List[int], nums2: List[int]) -> List[int]:
+    def nextGreaterElement(self, nums1: List[int], nums2: List[int]) -> List[int]:
         """               0 1 2 3
         [4,1,2], nums2 = [1,0,3,4,2]
         
