@@ -1,17 +1,18 @@
 class File:
-    def __init__(self, file_name, content):
-        self.file_name = file_name
+    def __init__(self, name, content):
+        self.name = name
         self.content = [content]
         self.is_file = True
 
 class Dir:
-    def __init__(self,):
+    def __init__(self):
         self.subdirs = defaultdict(Dir)
         self.is_file = False
         
 
 class FileSystem:
     """
+    File structure as below
      /
       /a
         /b
@@ -21,47 +22,48 @@ class FileSystem:
         /f = content
       /h
     
-    
+    Time Complexity: O(N), N - is the path length per call per function.
+    Space Complexity: O(M), M - is the max path length that exist
     """
 
     def __init__(self):
         self.dirs = Dir()
         
-
     def ls(self, path: str) -> List[str]: # /
         parts = path.split("/")
         root = self.dirs
         if path == "/":
-            return sorted(root.subdirs[""].subdirs.keys(), key=lambda x: x)
+            dir_list = root.subdirs[""].subdirs.keys()
+            return sorted(dir_list, key=lambda x: x)
         
-        for part in parts: 
-            if part not in root.subdirs:
+        for name in parts: 
+            if name not in root.subdirs:
                 return []
-            root = root.subdirs[part]
+            root = root.subdirs[name]
+            
         if root.is_file:
-            return [root.file_name]
-        return sorted(root.subdirs.keys(), key=lambda x: x)
+            return [root.name]
+        dir_list = root.subdirs.keys()
+        return sorted(dir_list, key=lambda x: x)
 
     def mkdir(self, path: str) -> None:  # "/a/b/c"
         parts = path.split("/")
-        #print("parts", parts)
         root = self.dirs
-        #print("root.subdirs", root.subdirs)
-        for part in parts:  # "", "a", "b", "c"
-            if part not in root.subdirs:
-                root.subdirs[part] = Dir()
-            #print(root.subdirs)
-            root = root.subdirs[part]
-        #print("self.dirs.subdirs", self.dirs.subdirs)
+
+        for name in parts:  # "", "a", "b", "c"
+            if name not in root.subdirs:
+                root.subdirs[name] = Dir()
+            root = root.subdirs[name]
 
     def addContentToFile(self, filePath: str, content: str) -> None: #"/a/b/d"
         parts = filePath.split("/")
         file_name = parts.pop()
         root = self.dirs
-        for part in parts:   # "", "a", "b",
-            if part not in root.subdirs:
-                root.subdirs[part] = Dir()
-            root = root.subdirs[part]
+        for name in parts:   # "", "a", "b",
+            if name not in root.subdirs:
+                root.subdirs[name] = Dir()
+            root = root.subdirs[name]
+            
         if file_name in root.subdirs:
             root.subdirs[file_name].content.append(content)
         else:
@@ -70,10 +72,10 @@ class FileSystem:
     def readContentFromFile(self, filePath: str) -> str: #"/a/b/d"
         parts = filePath.split("/")
         root = self.dirs
-        for part in parts:
-            if part not in root.subdirs:
+        for name in parts:
+            if name not in root.subdirs:
                 return ""
-            root = root.subdirs[part]
+            root = root.subdirs[name]
 
         return "".join(root.content)
 
