@@ -1,9 +1,5 @@
 class Solution:
     def myAtoi(self, s: str) -> int:
-        """
-        """
-        
-        
         sign = 1
         integer = 0
         # find the integer start pos
