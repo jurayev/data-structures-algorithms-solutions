@@ -3,7 +3,7 @@ class Solution:
         """
         Q2 from Weekly contest 276
         Submission time: 0:25:03
-        Time spent: 10 mins + 5 mins penalty
+        Time spent: 10 mins + 5 mins penalty(TLE)
          
         Time Complexity: O(D), where D is the number of doubles
         """
