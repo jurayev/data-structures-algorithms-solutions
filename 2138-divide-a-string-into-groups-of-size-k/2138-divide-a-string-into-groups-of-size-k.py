@@ -15,7 +15,7 @@ class Solution:
             if len(string) == k:
                 groups.append(string)
                 string = ""
-   
+        # check if last string needs to be filled in
         if string:
             string += fill*k
             groups.append(string[:k])
