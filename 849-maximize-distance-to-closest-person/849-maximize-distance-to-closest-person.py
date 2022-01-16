@@ -1,6 +1,13 @@
 class Solution:
     def maxDistToClosest(self, seats: List[int]) -> int:
-        """      
+        """
+        Approach:
+            Find distances from left to right
+            Find distances from right to left
+            Find the best distance amongs "left to right" and "right to left" distances
+        Time: O(N)
+        Space O(N)
+
                     [1,0,0,0,1,0,1]
                     
                     last = 6
