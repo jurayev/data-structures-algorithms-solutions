@@ -12,15 +12,6 @@ class Solution:
         return dp[0][0]
     
     def maximumScore1(self, nums: List[int], mult: List[int]) -> int:
-        """
-     m   0 1 2  n
-     0  [0,0,0]
-     1  [0,0,0]
-     2  [0,0,4]
-        
-        
-        
-        """
         
         @functools.lru_cache(maxsize=2000)
         def dp(left, i):
