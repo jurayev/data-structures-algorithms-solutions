@@ -2,6 +2,7 @@ from collections import deque
 
 class Solution:
     def generateParenthesis(self, n: int) -> List[str]:
+        """DFS approach"""
         result = []
         self.dfs(result, [], n, 0, 0)
         return result
@@ -32,8 +33,8 @@ class Solution:
         Approach: Using BFS start with single brackets, trying all possible
                   permutations. Keep track of opening and closing variables
                   for balancing purposes.
-        Time Complexity: O(N!) Generating all possible permutations of N brackets times 2
-        Space Complexity O(N!)
+        Time Complexity: O(2^N2) Generating all possible subsets of N brackets times 2
+        Space Complexity O(2^N2)
         """
         result = []
         
