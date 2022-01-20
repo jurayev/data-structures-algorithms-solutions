@@ -1,7 +1,7 @@
 from collections import deque
 
 class Solution:
-    def generateAbbreviations(self, word: str) -> List[str]:
+    def generateAbbreviationDSF(self, word: str) -> List[str]:
         result = []
         self.dfs(word, 0, "", result)
         return result
@@ -15,7 +15,7 @@ class Solution:
         self.dfs(word, i+1, string+"_", result)
         self.dfs(word, i+1, string+word[i], result)
     
-    def generateAbbreviationsBSF(self, word: str) -> List[str]:
+    def generateAbbreviations(self, word: str) -> List[str]:
         """
         Approach:
             Using BFS try to generate all possible subsets.
