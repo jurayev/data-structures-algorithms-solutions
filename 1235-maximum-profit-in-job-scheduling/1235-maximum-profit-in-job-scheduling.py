@@ -3,29 +3,12 @@ class Solution:
     def jobScheduling(self, startTime: List[int], endTime: List[int], profits: List[int]) -> int:
         """          0  1. 2. 3
         startTime = [1, 2, 3, 3], 
-                              ^
-          endTime = [3, 4, 5, 6], 
-           profit = [5, 1, 4, 7]  -> 12
-                        ^
-                     0  1  2  3  4  5  6
-                  0 [0, 0, 0, 0, 0  0  0] 
-                  1 [0, 5, 5, 5, 0  0  0]
-                  2 [0, 0, 1, 1, 1  0  0]
-                  3 [0, 0, 0, 4, 4  4  0]
-                  4 [0, 0, 0, 7, 7  7  7]
-                  
-                  
-                  
-                     0  1  2  3  4  5  6
-                  0 [0, 7, 7, 7, 0]
-                  1 [0, 5, 5, 0, 0  0  0]
-                  2 [0, 0, 1, 1, 1  0  0]
-                  3 [0, 0, 0, 4, 4  4  0]
-                  4 [0, 0, 0, 0, 7  7  7]
-                  
-                  [1, 2, 3, 3]
-                              ^
-                  [1,3,5] [2,4,1] [3,5,4] [3,6,7]
+                              
+        jobs      = [1,3,5] [2,4,1] [3,5,4] [3,6,7]
+        
+        dp =        [12,12,7,7]
+        Time Complexity O(N log N)
+        Space Complexity (N+M+K)
         """
         
         # sort by starting time
