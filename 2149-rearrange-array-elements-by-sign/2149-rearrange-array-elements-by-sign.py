@@ -1,9 +1,6 @@
 class Solution:
     def rearrangeArray(self, nums: List[int]) -> List[int]:
-        """
-        [3,1,-2,-5,2,-4]
-         ^
-        """
+        
         plus = [num for num in nums if num > 0]
         minus = [num for num in nums if num < 0]
         
