@@ -1,5 +1,16 @@
 class Solution:
     def countElements(self, nums: List[int]) -> int:
+        min_el = min(nums)
+        max_el = max(nums)
+        
+        count = 0
+        for num in nums:
+            count += bool(min_el < num < max_el)
+        
+        return count
+    
+    
+    def countElements1(self, nums: List[int]) -> int:
         
         nums_count = collections.Counter(nums)
         sorted_nums = sorted(set(nums))
