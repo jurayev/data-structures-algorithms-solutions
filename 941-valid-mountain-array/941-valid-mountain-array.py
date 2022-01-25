@@ -9,10 +9,9 @@ class Solution:
         while top_idx < len(arr) and arr[top_idx-1] < arr[top_idx]:
             top_idx += 1
         
-        if top_idx == 1 or top_idx == len(arr):
-            return False
         top_idx -= 1
-        
+        if top_idx == 0 or top_idx == len(arr)-1:
+            return False
         
         while top_idx+1 < len(arr) and arr[top_idx] > arr[top_idx+1]:
             top_idx += 1
