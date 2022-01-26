@@ -1,3 +1,8 @@
+class Item:
+    def __init__(self, val, increment=0):
+        self.val = val
+        self.increment = increment
+        
 class CustomStack:
     """
     ["CustomStack","push","push","pop","push","push","push","increment","increment","pop","pop","pop","pop"]
@@ -15,22 +20,25 @@ class CustomStack:
         self.size = maxSize
         self.stack = []
 
-    def push(self, x: int) -> None:
+    def push(self, val: int) -> None:
+        """Time O(1)"""
         if len(self.stack) < self.size:
-            self.stack.append([x, 0])
+            self.stack.append(Item(val))
 
     def pop(self) -> int:
+        """Time O(1)"""
         if not self.stack:
             return -1
-        val, increment = self.stack.pop()
+        item = self.stack.pop()
         if self.stack:
-            self.stack[-1][1] += increment
-        return val + increment
+            self.stack[-1].increment += item.increment
+        return item.val + item.increment
 
     def increment(self, k: int, val: int) -> None:
+        """Time O(1)"""
         if self.stack:
             k = min(k, len(self.stack))
-            self.stack[k-1][1] += val
+            self.stack[k-1].increment += val
 
 # Your CustomStack object will be instantiated and called as such:
 # obj = CustomStack(maxSize)
