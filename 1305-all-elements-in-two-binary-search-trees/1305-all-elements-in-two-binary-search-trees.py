@@ -15,8 +15,8 @@ class Solution:
         Approach 2:
             Use BST properties to append the integer in the sorted order on the go.
 
-            Time O(N)
-            Space O(N)
+            Time O(N+M)
+            Space O(N+M)
         
         """
         root1_nums = []
