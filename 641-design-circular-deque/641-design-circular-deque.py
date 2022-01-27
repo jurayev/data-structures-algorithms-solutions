@@ -40,23 +40,16 @@ class MyCircularDeque:
     def deleteFront(self) -> bool:
         if self.isEmpty():
             return False
+        
         self.size -= 1
-        # if self.isEmpty():
-        #     self.back = -1
-        #     self.front = 1
-        #     return True
-
         self.front = (self.front + 1) % self.max_size
         return True
 
     def deleteLast(self) -> bool:
         if self.isEmpty():
             return False
+        
         self.size -= 1
-        # if self.isEmpty():
-        #     self.back = -1
-        #     self.front = 1
-        #     return True
         self.back = (self.back - 1 + self.max_size) % self.max_size
         return True
         
