@@ -11,8 +11,8 @@ class Solution:
         Put all nodes into the min_heap, always remove the min node. 
         Move pointer of the current node one step forward and push to the min_heap again
 
-        Time (K log N)
-        Space O(K*N)
+        Time (N log K)
+        Space O(N)
         """
         min_heap = []
         list_id = 0
