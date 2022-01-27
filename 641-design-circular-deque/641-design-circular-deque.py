@@ -20,9 +20,7 @@ class MyCircularDeque:
             return False
         self.size += 1
 
-        self.front -= 1
-        if self.front < 0:
-            self.front = self.max_size - 1
+        self.front = (self.front - 1 + self.max_size) % self.max_size
         self.deque[self.front] = value
         if self.size == 1:
             self.back = self.front
@@ -33,8 +31,7 @@ class MyCircularDeque:
             return False
         self.size += 1
 
-        self.back += 1
-        self.back %= self.max_size
+        self.back = (self.back + 1) % self.max_size
         self.deque[self.back] = value
         if self.size == 1:
             self.front = self.back
@@ -44,25 +41,23 @@ class MyCircularDeque:
         if self.isEmpty():
             return False
         self.size -= 1
-        if self.isEmpty():
-            self.back = -1
-            self.front = 1
-            return True
-        self.front += 1
-        self.front %= self.max_size
+        # if self.isEmpty():
+        #     self.back = -1
+        #     self.front = 1
+        #     return True
+
+        self.front = (self.front + 1) % self.max_size
         return True
 
     def deleteLast(self) -> bool:
         if self.isEmpty():
             return False
         self.size -= 1
-        if self.isEmpty():
-            self.back = -1
-            self.front = 1
-            return True
-        self.back -= 1
-        if self.back < 0:
-            self.back = self.max_size-1
+        # if self.isEmpty():
+        #     self.back = -1
+        #     self.front = 1
+        #     return True
+        self.back = (self.back - 1 + self.max_size) % self.max_size
         return True
         
 
