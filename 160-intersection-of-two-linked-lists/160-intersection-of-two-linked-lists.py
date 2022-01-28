@@ -6,6 +6,28 @@
 
 class Solution:
     def getIntersectionNode(self, head_a: ListNode, head_b: ListNode) -> Optional[ListNode]:
+        """
+        1 -> 2 - > 3   -> 4 -> 5
+                          ^
+                        |
+             1 -> 2 ->
+                          ^
+        
+        
+        """
+        if not head_a or not head_b:
+            return head_a
+        node_a, node_b = head_a, head_b
+        
+        while node_a != node_b:
+            node_a = node_a.next if node_a else head_b
+            node_b = node_b.next if node_b else head_a
+            
+        return node_a
+        
+        
+        
+    def getIntersectionNode1(self, head_a: ListNode, head_b: ListNode) -> Optional[ListNode]:
         size_a, size_b = self.get_size(head_a), self.get_size(head_b)
 
         if size_a < size_b:
