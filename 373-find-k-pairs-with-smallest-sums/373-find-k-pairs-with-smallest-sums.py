@@ -3,8 +3,10 @@ class Solution:
     def kSmallestPairs(self, nums_one: List[int], nums_two: List[int], k: int) -> List[List[int]]:
         """
         nums1 = [1,7,11], nums2 = [2,4,6] k = 3
-                 i
-                                     j
+        
+        Time O(K log K)
+        Space O(K log K)
+                                     
         """
         res = [] # [3,0,0] [5,0,1] [7,0,2] [9,1,0] [11,1,1] [13,2,0] [15,1,2] [15,2,1]
         i = 0
