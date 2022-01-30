@@ -1,7 +1,6 @@
 class LRUCache:
     def __init__(self):
         self.cache = collections.OrderedDict()
-        self.placeholder = "*"
         
     def put(self, key: int, value) -> None:
         self.cache[key] = value
