@@ -18,7 +18,7 @@ class LRUCache:
 class LFUCache:
     """
     Time Complexity: O(1). Amortized for all operations
-    Space Compelxity O(C * 3), C - is capacity, we store 3x our capacity to maintain LFU + LRU properties
+    Space Compelxity O(C), C - is capacity, we store 2x our capacity to maintain LFU + LRU properties
     
     Test-Cases:
         ["LFUCache","put","put","get","put","get","get","put","get","get","get"]
