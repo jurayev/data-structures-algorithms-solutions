@@ -1,7 +1,7 @@
 from heapq import heappush, heappop, heappushpop
 from sortedcontainers import SortedList
 
-class MedianFinder:
+class MedianFinder1:
     """ 
     Time O(N log N)
     Space O(N)
@@ -24,7 +24,7 @@ class MedianFinder:
 
         return self.elements[mid_idx]
     
-class MedianFinderTwoHeaps:
+class MedianFinder:
     """
     Time O(N log N)
     Space O(N)
