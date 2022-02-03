@@ -1,13 +1,45 @@
 class Solution:
     def sortArray(self, nums: List[int]) -> List[int]:
-        return self.merge_sort(nums)
+        # self.quick_sort(nums, 0, len(nums)-1)
+        # return nums
+        #return self.merge_sort(nums)
         #return self.quick_sort(nums)
         #return self.heap_sort(nums)
         #return self.insertion_sort(nums)
         #return self.bubble_sort(nums)
         #return self.selection_sort(nums)
-        #return sorted(nums)
+        return sorted(nums)
     
+    def quick_sort(self, nums, start, end):
+        """
+        Merge Sort Impelementation
+        
+        Time O(N^2)
+        Space O(1)
+        TLE
+        """
+        if start >= end:
+            return 
+        
+        pivot_idx = self.partition(nums, start, end)
+        self.quick_sort(nums, start, pivot_idx-1)
+        self.quick_sort(nums, pivot_idx+1, end)
+        
+    def partition(self, nums, start, end):
+        # [9, 18, 32, 40, 61, 50]
+        #          i  
+        #                      j
+        #                      p
+        pivot_el = nums[end]
+        i = start
+        for j in range(start, end):
+            if nums[j] < pivot_el:
+                nums[i], nums[j] = nums[j], nums[i]
+                i += 1
+        
+        nums[i], nums[end] = nums[end], nums[i]
+        return i
+        
     def merge_sort(self, nums):
         """
         Merge Sort Impelementation
@@ -68,6 +100,7 @@ class Solution:
         
         Time O(N^2)
         Space O(1)
+        TLE
         """
         n = len(nums)
         for i in range(0, n):
@@ -83,6 +116,7 @@ class Solution:
         
         Time O(N^2)
         Space O(1)
+        TLE
         """
         n = len(nums)
         for i in range(0, n):
@@ -99,6 +133,7 @@ class Solution:
         
         Time O(N^2)
         Space O(1)
+        TLE
         """
         size = len(nums)
         for i in range(size):
