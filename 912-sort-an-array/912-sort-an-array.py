@@ -1,19 +1,55 @@
 class Solution:
     def sortArray(self, nums: List[int]) -> List[int]:
-        #return self.merge_sort(nums)
+        return self.merge_sort(nums)
         #return self.quick_sort(nums)
-        return self.heap_sort(nums)
+        #return self.heap_sort(nums)
         #return self.insertion_sort(nums)
         #return self.bubble_sort(nums)
         #return self.selection_sort(nums)
         #return sorted(nums)
     
+    def merge_sort(self, nums):
+        """
+        Merge Sort Impelementation
+        
+        Time O(N log N)
+        Space O(N Log N)
+        """
+        if len(nums) <= 1:
+            return nums
+        mid_idx = len(nums) // 2
+        left_nums = self.merge_sort(nums[:mid_idx])
+        right_nums = self.merge_sort(nums[mid_idx:])
+        return self.merge(left_nums, right_nums)
+
+    def merge(self, left_nums, right_nums):
+        """
+        Time O(M+N)
+        Space O(M+N)
+        """
+        merged_nums = []
+        l_size = len(left_nums)
+        r_size = len(right_nums)
+        left_idx = 0
+        right_idx = 0
+        while left_idx < len(left_nums) or right_idx < len(right_nums):
+            left_num = left_nums[left_idx] if left_idx < l_size else float("inf")
+            right_num = right_nums[right_idx] if right_idx < r_size else float("inf")
+            if left_num < right_num:
+                merged_nums.append(left_num)
+                left_idx += 1
+            else:
+                merged_nums.append(right_num)
+                right_idx += 1
+
+        return merged_nums
+
     def heap_sort(self, nums):
         """
         Heap Sort Impelementation
         
         Time O(N log N)
-        Space O(1)
+        Space O(N)
         """
         from heapq import heapify, heappop
         min_heap = nums[:]
