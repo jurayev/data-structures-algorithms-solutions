@@ -7,19 +7,20 @@ class Solution:
         
         [3,2,1,4,5,6]
         """
-        return self.quick_select(nums, 0, len(nums)-1, len(nums)-k)
+        return self.quick_select(nums, k)
         
-    def quick_select(self, nums, start, end, k):
-        if start == end:
-            return nums[start]
-        
-        pivot_idx = self.partition(nums, start, end)
-        if k > pivot_idx:
-            return self.quick_select(nums, pivot_idx+1, end, k)
-        if k < pivot_idx:
-            return self.quick_select(nums, start, pivot_idx-1, k)
-        
-        return nums[pivot_idx]
+    def quick_select(self, nums, k):
+        pivot_num = random.choice(nums)
+        min_nums = [num for num in nums if num < pivot_num]
+        equal_nums = [num for num in nums if num == pivot_num]
+        max_nums = [num for num in nums if num > pivot_num]
+
+        m_size, e_size = len(max_nums), len(equal_nums)
+        if k <= m_size:
+            return self.quick_select(max_nums, k)
+        if k > m_size + e_size:
+            return self.quick_select(min_nums, k - m_size - e_size)
+        return pivot_num
         
     def partition(self, nums, start, end):
         p_index = end
