@@ -13,6 +13,8 @@ class Solution:
         2. Solve using scan line: 
             put all start and end separately
             sort both events
+        Time O(N log N)
+        Space O(N)
         """
         
         start_events = sorted([event[0] for event in intervals])
@@ -29,12 +31,10 @@ class Solution:
                 merged_events.append([start, end])
             elif start <= end:
                 end_idx += 1
-                start = start_events[start_idx]
                 end = end_events[end_idx]
-                merged_events[-1][1] = end_events[end_idx]
+                merged_events[-1][1] = end
             else:
                 end_idx += 1
-                start = start_events[start_idx]
                 end = end_events[end_idx]
                 merged_events.append([start, end])
             start_idx += 1
