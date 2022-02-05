@@ -7,6 +7,8 @@ class Solution:
                                   010
         s count = 0
         
+        Time O(N+M)
+        Space O(M)
         """
         
         counts = collections.Counter(t) 
