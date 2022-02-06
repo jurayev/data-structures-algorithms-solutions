@@ -8,7 +8,22 @@ class Item:
         return self.value < other.value
 
 class Solution:
-    def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
+    def maxSlidingWindow(self, nums, k):
+        maxes = []
+        deq = collections.deque([], maxlen=k)
+
+        for idx, num in enumerate(nums):
+            while deq and deq[0].index <= idx - k:
+                deq.popleft()
+            while deq and deq[-1].value <= num:
+                deq.pop()
+
+            deq.append(Item(num, idx))
+            if idx - k + 1 >= 0:
+                maxes.append(deq[0].value)
+        return maxes
+
+    def maxSlidingWindowHeap(self, nums: List[int], k: int) -> List[int]:
         start = 0
         window = []
         for end in range(0, k):
