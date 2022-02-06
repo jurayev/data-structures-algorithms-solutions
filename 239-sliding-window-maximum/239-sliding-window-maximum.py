@@ -9,6 +9,10 @@ class Item:
 
 class Solution:
     def maxSlidingWindow(self, nums, k):
+        """
+        Time O(N) amortized
+        Space O(K)
+        """
         maxes = []
         deq = collections.deque([], maxlen=k)
 
@@ -24,6 +28,10 @@ class Solution:
         return maxes
 
     def maxSlidingWindowHeap(self, nums: List[int], k: int) -> List[int]:
+        """
+        Time O(N log K)
+        Space O(K)
+        """
         start = 0
         window = []
         for end in range(0, k):
