@@ -1,5 +1,41 @@
+class Event:
+    def __init__(self, time, event_type):
+        self.time = time
+        self.type = event_type
+        
+class Type:
+    START = 0
+    END = 1
+    
 class Solution:
     def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
+        """
+        1, 3
+        
+        2,2
+        
+        [1]
+        """
+        new_start, new_end = newInterval
+        events = [Event(new_start, Type.START), Event(new_end, Type.END)]
+        for start_time, end_time in intervals:
+            events.append(Event(start_time, Type.START))
+            events.append(Event(end_time, Type.END))
+            
+        events.sort(key=lambda e: (e.time, e.type))
+        balance = 0
+        start_time = 0
+        merged_events = []
+        # Scan line
+        for event in events:
+            if balance == 0:
+                start_time = event.time
+            balance += 1 if event.type == Type.START else -1
+            if balance == 0:
+                merged_events.append([start_time, event.time])
+        return merged_events
+    
+    def insert1(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
         """
         Solution using scan line algo:
             Time O(N)
