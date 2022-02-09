@@ -1,8 +1,24 @@
 class Solution:
     def findPairs(self, nums: List[int], k: int) -> int:
-        """
+        pairs = set()
+        seen = set()
         
-        [3,1,4,1,5] k = 0
+        for num in nums:
+            if num - k in seen:
+                pairs.add((num - k, num))
+            if num + k in seen:
+                pairs.add((num, num + k))
+                
+            seen.add(num)
+        return len(pairs)
+        
+    def findPairs1(self, nums: List[int], k: int) -> int:
+        """
+        Time O(N log N)
+        Space O(N)
+
+        Dry Run
+        [3,1,4,1,5] k = 2
         
         [1,1,1,3,3,4,5]
         
