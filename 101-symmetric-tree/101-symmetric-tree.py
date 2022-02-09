@@ -8,6 +8,26 @@ class Solution:
     def isSymmetric(self, root: Optional[TreeNode]) -> bool:
         if not root:
             return True
+        stack = [(root.left, root.right)]
+        
+        while stack:
+            node1, node2 = stack.pop()
+            if not node1 and node2:
+                return False
+            if node1 and not node2:
+                return False
+            if not node1 and not node2:
+                continue
+            if node1.val != node2.val:
+                return False
+            
+            stack.append((node1.left, node2.right))
+            stack.append((node1.right, node2.left))
+        return True
+        
+    def isSymmetric1(self, root: Optional[TreeNode]) -> bool:
+        if not root:
+            return True
         return self.check_symmetric(root.left, root.right)
     
     
