@@ -1,5 +1,19 @@
 class Solution:
     def findPairs(self, nums: List[int], k: int) -> int:
+        counts = collections.Counter(nums)
+        pairs = 0
+        for num, count in counts.items():
+            if k == 0 and count >= 2:
+                pairs += 1
+            elif k != 0 and counts[num+k]:
+                pairs += 1
+        return pairs
+    
+    def findPairs1(self, nums: List[int], k: int) -> int:
+        """
+        Time O(N)
+        Space O(N)
+        """
         pairs = set()
         seen = set()
         
