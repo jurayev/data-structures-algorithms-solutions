@@ -1,10 +1,11 @@
 class Solution:
     def findCheapestPrice(self, n: int, flights: List[List[int]], src: int, dst: int, k: int) -> int:
-        return self.bf_min_cost(flights, n, src, dst, k)
+        return self.bellman_ford_min_cost(flights, n, src, dst, k)
         
         
-    def bf_min_cost(self, flights, airports, src, dst, at_most_stops):
+    def bellman_ford_min_cost(self, flights, airports, src, dst, at_most_stops):
         """
+        
         Time O(K * E)
         Space O(V)
 
