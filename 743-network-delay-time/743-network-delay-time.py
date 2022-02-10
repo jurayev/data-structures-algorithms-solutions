@@ -13,14 +13,29 @@ class Solution:
             graph[source].append(Edge(source, dest, cost))
 
         # Implement Dijkstra, returns all costs
-        costs = self.dijkstra(graph, start_node, nodes)
+        #costs = self.dijkstra(graph, start_node, nodes)
+        costs = self.bellman_ford_min_cost(times, start_node, nodes)
         # vertex : cost mapping
         # for every cost select the max cost and return
         max_cost = max(costs)
         return max_cost if max_cost != float("inf") else -1
     
+    def bellman_ford_min_cost(self, times, start_node, nodes):
+        costs = [float("inf") for _ in range(nodes)]
+        costs[start_node-1] = 0
+        visited = set()
+        for source in range(1, nodes):
+            for source, dest, cost in times:
+                new_cost = costs[source-1] + cost
+                if new_cost < costs[dest-1]:
+                    costs[dest-1] = new_cost
+        return costs
+
     def dijkstra(self, graph, start_node, nodes):
         """
+        Time O(V + E LogV)
+        Space O(V + E)
+        
         start = 2
         in_progess = [(0,2)* (1,1)* (1,3)* (2,4)*]
                   1  2    3  4    5
