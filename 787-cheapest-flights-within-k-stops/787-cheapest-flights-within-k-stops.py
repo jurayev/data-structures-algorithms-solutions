@@ -24,6 +24,8 @@ class Solution:
         
     def dijkstra(self, flights, cities, src, dst, stops):
         """
+        Time O(E + E LOG V)
+        Space O(E)
         [(0, 0), (100, 1), (200, 2), (500, 2)]
         
         [(0, 0, 0), (1, 1, 1), (5, 2, 1), (2, 2, 2), (6, 3, 2), (4, 3, 3)]
@@ -46,21 +48,16 @@ class Solution:
         heappush(cheapest, Node(0, 0, src))
         while cheapest:
             node = heappop(cheapest)
-            if node.id == dst:
-                return node.cost
-            if node.stops > curr_stops[node.id]:
-                continue
-            if node.stops > stops: 
+            if node.stops > curr_stops[node.id] or node.stops > stops:
                 continue
             curr_stops[node.id] = node.stops 
             for edge in graph[node.id]:
                 new_cost = node.cost + edge.cost
-                if new_cost < costs[edge.dest]:
-                    costs[edge.dest] = new_cost  
+                costs[edge.dest] = min(new_cost, costs[edge.dest])
                 heappush(cheapest, Node(new_cost, node.stops + 1, edge.dest))
     
-        #print(costs)
         return costs[dst] if costs[dst] < float("inf") else -1
+    
     def bellman_ford_min_cost(self, flights, airports, src, dst, at_most_stops):
         """
         
