@@ -1,8 +1,41 @@
+UNVISITED = 0
+VISITING = 1
+VISITED = 2
+IN_CYCLE = 3
+
 class Solution:
     def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
-        return self.toposort_bfs(numCourses, prerequisites)
+        return self.toposort_dfs(numCourses, prerequisites)
+        #return self.toposort_bfs(numCourses, prerequisites)
         
+    def toposort_dfs(self, n, edges):
+        order = []
+        # Build a graph
+        states = {i: UNVISITED for i in range(n)}
+        graph = defaultdict(list)
+        for source, dest in edges:
+            graph[source].append(dest)
         
+        for node in range(n):
+            self.dfs(graph, states, node, order)
+        all_visited = all(state == VISITED for state in states.values())
+        return order if all_visited else []
+    
+    def dfs(self, graph, states, node, order):
+        if states[node] == VISITED:
+            return 
+        if states[node] in [VISITING, IN_CYCLE]:
+            states[node] = IN_CYCLE
+            return 
+        
+        states[node] = VISITING
+        
+        for connected in graph[node]:
+            self.dfs(graph, states, connected, order)
+        
+        if states[node] != IN_CYCLE:
+            order.append(node)
+            states[node] = VISITED
     
     def toposort_bfs(self, n, edges):
         """
