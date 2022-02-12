@@ -28,7 +28,7 @@ class Solution:
         for source, dest in edges:
             graph[dest].append(source)
             indegree[source] += 1
-        print(indegree)  
+ 
         queue = collections.deque()
         # Find all starting nodes
         for node in range(n):
