@@ -19,13 +19,11 @@ class Solution:
             times = [time] * count
             ts = ts + times
         
-        min_time_diff = float("inf")
+        min_time_diff = ts[0] + day_to_minutes - ts[-1]
         for i in range(len(ts)-1):
             ts1, ts2 = ts[i], ts[i+1]
             min_time_diff = min(min_time_diff, ts2 - ts1)
             
-        ts1, ts2 = ts[0], ts[-1]
-        min_time_diff = min(min_time_diff, ts1 + day_to_minutes - ts2)
         return min_time_diff
     
     def findMinDifference1(self, timePoints: List[str]) -> int:
