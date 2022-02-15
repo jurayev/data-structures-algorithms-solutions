@@ -7,21 +7,35 @@
 
 class Solution:
     def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
-        """
-        Time Complexity: 
-            O(N) Worst
+        """ 
+                      3
+                   /		\
+              5				 1
+           /    \		/		\
+        6		2		0		8
+            /		\
+            7	    4
+           /
+        11	
         
-        Space Complexity:
-            O(N) Worst
+        LCA(11, 4) -> 2
+        LCA(11, 8) -> 3
+        LCA(4, 5) -> 5
+        LCA(6, 3) -> 3
+        Time O(N)
+        Space O(N)
         """
+        return self.find_lca(root, p, q)
+    
+    def find_lca(self, root, node1, node2):
         if not root:
             return None
-        left = self.lowestCommonAncestor(root.left, p, q)
-        right = self.lowestCommonAncestor(root.right, p, q)
-        
-        if root == p or root == q:
+        if root.val == node1.val or root.val == node2.val:
             return root
-        if left and right:
+
+        left_node = self.find_lca(root.left, node1, node2)
+        right_node = self.find_lca(root.right, node1, node2)
+
+        if left_node and right_node:
             return root
-        return left or right
-        
+        return left_node or right_node
