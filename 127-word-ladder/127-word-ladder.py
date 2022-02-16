@@ -1,4 +1,4 @@
-class Solution:
+class Solution1:
     def ladderLength(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
         if endWord not in wordList:
             return 0
@@ -58,3 +58,38 @@ class Solution:
                     q.append((next_word, dist+1))
          
         return 0
+    
+class Solution:
+    def ladderLength(self, begin_word: str, end_word: str, words: List[str]) -> int:
+        if not end_word or not begin_word or not words or end_word not in words: return 0
+        graph = collections.defaultdict(list)
+        # O(n^2 * m) time | O(n^2 * m) space
+        self.get_connected_words(words, graph)
+        return self.bfs(graph, begin_word, end_word)
+    
+    def bfs(self, graph, start_node, end_node):
+        visited = set()
+        q = collections.deque([(start_node, 1)])
+        while q:
+            
+            word, level = q.pop()
+            visited.add(word)
+            if word == end_node:
+                return level
+            
+            for i in range(len(word)):
+                combo_word = word[:i] + "*" + word[i+1:]
+         
+                for connection in graph[combo_word]:
+                    if connection not in visited:
+                        q.appendleft((connection, level+1))
+        return 0
+    
+    def get_connected_words(self, words, graph):
+        # *ot
+        # d*t
+        # do*
+        for word in words:
+            for i in range(len(word)):
+                combo_word = word[:i] + "*" + word[i+1:]
+                graph[combo_word].append(word)
