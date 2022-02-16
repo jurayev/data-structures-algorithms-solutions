@@ -1,4 +1,4 @@
-class Solution1:
+class Solution:
     def ladderLength(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
         if endWord not in wordList:
             return 0
@@ -59,7 +59,7 @@ class Solution1:
          
         return 0
     
-class Solution:
+class Solution1:
     def ladderLength(self, begin_word: str, end_word: str, words: List[str]) -> int:
         if not end_word or not begin_word or not words or end_word not in words: return 0
         graph = collections.defaultdict(list)
