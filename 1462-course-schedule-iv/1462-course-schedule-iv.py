@@ -1,6 +1,46 @@
 class Solution:
     def checkIfPrerequisite(self, numCourses: int, prerequisites: List[List[int]], queries: List[List[int]]) -> List[bool]:
         """
+        1: []
+        2: [1]
+        3: [1, 2]
+        
+        1 -> 2 -> 3
+        """
+        graph = defaultdict(list)
+        indegree = Counter()
+        for source, dest in prerequisites:
+            graph[source].append(dest)
+            indegree[dest] += 1
+            indegree[source] += 0
+            
+        reachable = defaultdict(set)
+        
+        self.toposort(reachable, graph, indegree)
+    
+        return [source in reachable[dest] for source, dest in queries]
+    
+    def toposort(self, reachable, graph, indegree):
+        q = deque([])
+        
+        for node, count in indegree.items():
+            if count == 0:
+                q.append(node)
+
+        while q:
+            source = q.popleft()
+            
+            for dest in graph[source]:
+                reachable[dest].add(source)
+                reachable[dest] = reachable[dest].union(reachable[source])
+                indegree[dest] -= 1
+                if indegree[dest] == 0:
+                    q.append(dest)
+                
+            
+        
+    def checkIfPrerequisite1(self, numCourses: int, prerequisites: List[List[int]], queries: List[List[int]]) -> List[bool]:
+        """
         1: 0, 2
         2: 0
         0: []
@@ -40,10 +80,6 @@ class Solution:
         [[1,2],[2,0]]
         [[1,0],[1,2],[2,0],[2,1],[0,1]]
         """
-        
-        # graph = [[0 for _ in range(numCourses)] for _ in range(numCourses)]
-        # for source, dest in prerequisites:
-        #     graph[source][dest] = 0
         graph = defaultdict(list)
         for source, dest in prerequisites:
             graph[source].append(dest)
