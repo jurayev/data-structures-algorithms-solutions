@@ -1,14 +1,11 @@
 class TrieNode:
     def __init__(self,):
-        self.children = defaultdict(TrieNode)
+        self.children = {}
         self.weight = 0
-        self.is_word = False
         
     def increment(self, value):
         self.weight += value
-    
-    def set_word(self):
-        self.is_word = True
+
     
 class MapSum:
 
@@ -27,9 +24,10 @@ class MapSum:
         self.inserted_keys[key] = val
         node = self.trie
         for char in key:
+            if char not in node.children:
+                node.children[char] = TrieNode()
             node = node.children[char]
             node.increment(new_val)
-        node.set_word()
         
 
     def sum(self, prefix: str) -> int:
