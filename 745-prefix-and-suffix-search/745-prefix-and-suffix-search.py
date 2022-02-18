@@ -2,10 +2,10 @@ class TrieNode:
     
     def __init__(self):
         self.children = defaultdict(TrieNode)
-        self.index = -1
+        self.weight = -1
     
-    def set_index(self, index):
-        self.index = index
+    def set_weight(self, weight):
+        self.weight = weight
 
 class WordFilter:
     """
@@ -53,22 +53,22 @@ class WordFilter:
             if char not in node.children:
                 return -1
             node = node.children[char]
-        return node.index
+        return node.weight
     
-    def insert(self, word, index):
+    def insert(self, word, weight):
         node = self.trie
         for char in word:
             if char not in node.children:
                 node.children[char] = TrieNode()
             node = node.children[char]
-            node.set_index(index)
+            node.set_weight(weight)
         
     def insert_words(self, words):
-        for index, word in enumerate(words):
+        for weight, word in enumerate(words):
             suffixed_word = "#" + word
             for char in reversed(word):
                 suffixed_word = char + suffixed_word
-                self.insert(suffixed_word, index)
+                self.insert(suffixed_word, weight)
         
 
 ["WordFilter","f","f","f","f","f","f","f","f","f"]
