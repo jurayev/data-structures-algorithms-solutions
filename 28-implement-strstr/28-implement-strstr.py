@@ -1,5 +1,5 @@
 class Solution:
-    def strStr(self, str1: str, str2: str) -> int:
+    def strStr1(self, str1: str, str2: str) -> int:
         """
         helpplplo
                 ^ 
@@ -65,5 +65,47 @@ class Solution:
                 return start
             
         return -1 if str2 else 0
+            
+    def strStr(self, str1, str2):
+        """
+        KMP Time O(N+M) | Space O(M)
+             i   j
+        "abcdabcdv"
+         000012340
+         
+         abcdabcdv
+                  j
+         abcdabcrabcdabcdv
+                          i
+        """
+        n = len(str1)
+        m = len(str2)
+        # build suffix prefix array
+        
+        psa = [-1 for i in range(m)]
+        i, j = 0, 1
+        while j < m:
+            if str2[i] == str2[j]:
+                psa[j] = i
+                i += 1
+                j += 1
+            elif i > 0:
+                i = psa[i-1] + 1
+            else:
+                j += 1
+        
+        i, j = 0, 0
+
+        while i < n and j < m:
+            if str1[i] == str2[j]:
+                i += 1
+                j += 1
+            elif j > 0:
+                j = psa[j-1] + 1
+            else:
+                i += 1
+        
+        return i - m if j >= m else -1
+                
             
             
