@@ -65,7 +65,15 @@ class Solution:
 #                 return start
             
 #         return -1 if str2 else 0
-        return self.KMP(str1, str2)
+        str2_hash = hash(str2)
+        n, m = len(str1), len(str2)
+        
+        for start in range(n):
+            substring = str1[start : start + m]
+            if hash(substring) == str2_hash:
+                return start
+        return -1 if str2 else 0
+        #return self.KMP(str1, str2)
             
     def KMP(self, str1, str2):
         """
