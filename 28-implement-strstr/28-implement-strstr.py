@@ -74,23 +74,23 @@ class Solution:
          000012340
          
          abcdabcdv
-                  j
+                j
          abcdabcrabcdabcdv
-                          i
+                i
         """
         n = len(str1)
         m = len(str2)
         # build suffix prefix array
         
-        psa = [-1 for i in range(m)]
+        psa = [0 for i in range(m)]
         i, j = 0, 1
         while j < m:
             if str2[i] == str2[j]:
-                psa[j] = i
+                psa[j] = i + 1
                 i += 1
                 j += 1
             elif i > 0:
-                i = psa[i-1] + 1
+                i = psa[i-1]
             else:
                 j += 1
         
@@ -101,7 +101,7 @@ class Solution:
                 i += 1
                 j += 1
             elif j > 0:
-                j = psa[j-1] + 1
+                j = psa[j-1]
             else:
                 i += 1
         
