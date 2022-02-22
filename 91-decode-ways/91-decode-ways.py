@@ -37,6 +37,9 @@ class Solution:
                              -> decodings[i] = decodings[i] + 1 if can[i]+can[i-1]
         calculation order -> 0.....n-1
         answer -> decodings[n-1]
+        
+        Time O(N)
+        Space O(N)
         """
         n = len(s)
         decodings = [0 for _ in range(0, n+1)]
