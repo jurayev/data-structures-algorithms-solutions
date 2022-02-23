@@ -46,18 +46,22 @@ class Solution:
         if n < 4:
             return max(nums)
         amounts = [0 for i in range(n)]
-        amounts[0] = nums[0]
-        amounts[1] = max(nums[0], nums[1])
+        pre_pre_amount = nums[0]
+        pre_amount = max(nums[0], nums[1])
         
         for i in range(2, n-1):
-            amounts[i] = max(nums[i] + amounts[i-2], amounts[i-1])
-        #print(amounts)
-        best = amounts[n-2]
-        amounts = [0 for i in range(n)]
-        amounts[1] = nums[1]
-        amounts[2] = max(nums[1], nums[2])
+            amount = max(nums[i] + pre_pre_amount, pre_amount)
+            pre_pre_amount = pre_amount
+            pre_amount = amount
+
+        best_after_first_run = pre_amount
+
+        pre_pre_amount = nums[1]
+        pre_amount = max(nums[1], nums[2])
         for i in range(3, n):
-            amounts[i] = max(nums[i] + amounts[i-2], amounts[i-1])
-        #print(amounts)
-        return max(best, amounts[n-1])
+            amount = max(nums[i] + pre_pre_amount, pre_amount)
+            pre_pre_amount = pre_amount
+            pre_amount = amount
+        
+        return max(best_after_first_run, pre_amount)
         
