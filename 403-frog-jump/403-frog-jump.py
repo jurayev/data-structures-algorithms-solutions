@@ -3,9 +3,9 @@ class Solution:
         """
          1 2 3 4 5 6 7  8
         [0,1,3,5,6,8,12,17]
-           1 2 2   3 4  5
-           1 2 2 1 2
-           1 2   3 2   
+  run1       1 2 2   3 4  5
+  run2     1 2 2 1 2
+  run3     1 2   3 2   
            
         
         1. subproblems: jump(i, j, k) - reach j from i with k step
@@ -31,7 +31,8 @@ class Solution:
             if end == stones[-1]:
                 return True
             
-            return can_jump(end, end+jump, jump) or can_jump(end, end+jump+1, jump+1) \
+            return can_jump(end, end+jump, jump) \
+        or can_jump(end, end+jump+1, jump+1) \
         or can_jump(end, end+jump-1, jump-1) 
         """
         return jump(end, end+jump, jump) \           # jump(1, 1+1, 1) # jump(1, 2, 1)
