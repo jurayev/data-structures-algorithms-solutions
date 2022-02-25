@@ -15,11 +15,11 @@ class Solution:
         included_envelopes = []
         for _, height in s_envelopes:
             insert_index = bisect.bisect_left(included_envelopes, height)
-            #print(included_envelopes, insert_index, height)
             if insert_index >= len(included_envelopes):
                 included_envelopes.append(height)
             else:
                 included_envelopes[insert_index] = height
+
         return len(included_envelopes)
         
     
