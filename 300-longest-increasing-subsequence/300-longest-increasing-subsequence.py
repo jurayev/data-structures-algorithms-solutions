@@ -1,6 +1,31 @@
 class Solution:
     def lengthOfLIS(self, nums: List[int]) -> int:
         """
+        Time O(N log N)
+        Space O(N)
+        
+        Test 1
+        [10,9,2,5,3,7,101,18]
+                      i
+        seq -> [2, 3, 7, 18]
+        
+        Test 2
+        [0,1,0,3,2,3]
+                   i
+        seq -> [0, 1, 2, 3]
+        """
+        subsequence = []
+        for num in nums:
+            insert_index = bisect.bisect_left(subsequence, num)
+            if insert_index == len(subsequence):
+                subsequence.append(num)
+            subsequence[insert_index] = num
+        
+        return len(subsequence)
+        
+        
+    def lengthOfLIS1(self, nums: List[int]) -> int:
+        """
         [0,1,0,3,2,3]
         
          ^ ^     ^ ^ 
@@ -34,7 +59,9 @@ class Solution:
             [1,2,1,2,1,1]
                    i
                  j
-
+        
+        Time O(N^2)
+        Space O(N)
         """
         n = len(nums)
         dp = [1 for _ in range(n)]
