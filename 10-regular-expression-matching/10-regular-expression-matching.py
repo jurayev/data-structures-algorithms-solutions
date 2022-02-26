@@ -1,19 +1,6 @@
 class Solution:
     def isMatch(self, s: str, p: str) -> bool:
-        """
-        
-        abc
-        
-        a.c
-        
-        .*
-        
-        abcdddmmmm
-        ^
-        
-        .*abcd*dm..
-        ^
-        
+        """ 
         recurrence:
         x. match -> move i, j
         x. "." move forwards i, j
