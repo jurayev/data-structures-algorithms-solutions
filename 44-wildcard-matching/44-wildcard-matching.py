@@ -10,26 +10,10 @@ class Solution:
         
         base case:
             1. j >= len(p): return i == len(s)
-            
-        aa
-         i
-        *a
-         j
-         
-        aab
-           i
-        a*
-          j
         
-        cb
-        ?a
-        cb
-        ?*
-        
-        aa
-        *
+        Time O(N*M)
+        Space O(N*M)
 
-        "aa"
 "a"
 "aa"
 "*"
@@ -45,20 +29,17 @@ class Solution:
 "????*"
 "cb"
 "*????"
-
-"aab"
-    i
-"a*a"
-  j
         """
         @lru_cache(None)
         def match(i, j):
             if j >= len(pattern):
                 return i == len(text)
-            if i >= len(text):
-                return pattern[j] == "*" and match(i, j+1)
+
             if pattern[j] == "*":
-                return match(i, j+1) or match(i+1, j)
+                # match(i, j+1) -> match zero chars in text
+                # match(i+1, j) -> match one char in text
+                return match(i, j+1) or i < len(text) and match(i+1, j)
+            # match(i+1, j+1) -> both matched
             match_one_char = i < len(text) and pattern[j] in ["?", text[i]]
             return match_one_char and match(i+1, j+1)
         return match(0, 0)
