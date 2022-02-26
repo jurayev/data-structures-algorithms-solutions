@@ -9,6 +9,8 @@ class Solution:
             1. j >= len(patter): return 1
             2. i >= len(text): return 0
             
+        Time O(N*M)
+        Space O(N*M)
         
         "rabbbit"
             i
