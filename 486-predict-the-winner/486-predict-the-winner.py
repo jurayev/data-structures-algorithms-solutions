@@ -36,13 +36,29 @@ class Solution:
             []   []        []
         
         """
+#         @lru_cache(None)
+#         def play(l, r):
+#             if l > r:
+#                 return 0
+#             return max(nums[l] - play(l+1, r), nums[r] - play(l, r-1))
+        
+#         points = play(0, len(nums)-1)
+#         total_points = sum(nums)
+#         print(total_points, points)
+#         return points >= 0
+    
         @lru_cache(None)
         def play(l, r):
+            """
+            [1,5,2]
+             l   r
+            """
             if l > r:
                 return 0
-            return max(nums[l] - play(l+1, r), nums[r] - play(l, r-1))
+            points_with_left = nums[l] + min(play(l+2, r), play(l+1, r-1))
+            points_with_right = nums[r] + min(play(l, r-2), play(l+1, r-1))
+            return max(points_with_left, points_with_right)
         
         points = play(0, len(nums)-1)
         total_points = sum(nums)
-        print(total_points, points)
-        return points >= 0
+        return points >= total_points - points
