@@ -37,29 +37,32 @@ class Solution:
         if total_sum % k != 0:
             return False
         subset_sum = total_sum // k
-        used_indexes = ["0" for i in range(len(nums))]
+        mask = 0
         memo = {}
         
         def can_summ(i, subsets, curr_sum):
-            used_mask = "".join(used_indexes)
+            nonlocal mask
             if subsets == k:
                 return True
             if curr_sum > subset_sum:
                 return False
             if curr_sum == subset_sum:
-                memo[used_mask] = can_summ(0, subsets+1,  0)
-                return memo[used_mask]
+                memo[mask] = can_summ(0, subsets+1,  0)
+                return memo[mask]
                 
-            if used_mask in memo:
-                return memo[used_mask]
+            if mask in memo:
+                return memo[mask]
             for j in range(i, len(nums)):
-                if used_indexes[j] == "1": continue
-                used_indexes[j] = "1"
+                # test if j-th bit is set
+                if mask & (1 << j) != 0: continue
+                # set j-th bit
+                mask ^= (1 << j)
                 if can_summ(j+1, subsets, curr_sum + nums[j]):
                     return True
-                used_indexes[j] = "0"
+                # unset j-th bit
+                mask ^= (1 << j)
                 
-            memo[used_mask] = False
+            memo[mask] = False
             return False
         
         return can_summ(0, 1, 0)
