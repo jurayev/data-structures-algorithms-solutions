@@ -53,5 +53,5 @@ class Solution:
         if total_sum % subsets_count != 0:
             return False
         subset_sum = total_sum // subsets_count
-        #matchsticks.sort(reverse=True)
+        matchsticks.sort(reverse=True)
         return find_subsets(subsets_count-1, subset_sum, 0)
