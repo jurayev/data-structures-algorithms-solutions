@@ -23,35 +23,33 @@ class Solution:
         answer ->   if can make 4 subsets and use all numbers -> answer true
                     else answer is false
         """
-        def find_subsets(k, curr_sum, i):
-            nonlocal mask
+        @lru_cache(None)
+        def find_subsets(mask, k, curr_sum):
+            #nonlocal mask
             if k == 0:
                 return True
             if curr_sum == 0:
-                cache[mask] = find_subsets(k-1, subset_sum, 0)
+                return find_subsets(mask, k-1, subset_sum)
             if curr_sum < 0:
                 return False
-            if mask in cache:
-                return cache[mask]
+            # if mask in cache:
+            #     return cache[mask]
             
-            for j in range(i, len(matchsticks)):
+            for j in range(0, len(matchsticks)):
                 if mask & (1 << j) != 0: continue
-                mask = mask ^ (1 << j)
+                #mask = mask ^ (1 << j)
                 
-                if find_subsets(k, curr_sum - matchsticks[j], j+1):
+                if find_subsets(mask ^ (1 << j), k, curr_sum - matchsticks[j]):
                     return True
 
-                mask = mask ^ (1 << j)
+                #mask = mask ^ (1 << j)
             
-            cache[mask] = False
+            # cache[mask] = False
             return False
-        mask = 0
-        cache = {}
         
         total_sum = sum(matchsticks)
         subsets_count = 4
         if total_sum % subsets_count != 0:
             return False
         subset_sum = total_sum // subsets_count
-        matchsticks.sort(reverse=True)
-        return find_subsets(subsets_count-1, subset_sum, 0)
+        return find_subsets(0, subsets_count-1, subset_sum)
