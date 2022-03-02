@@ -22,29 +22,27 @@ class Solution:
                 return False
         answer ->   if can make 4 subsets and use all numbers -> answer true
                     else answer is false
+                    
+        Compelexities:
+                Time O(2^N * N)
+                Space O(2^N)
         """
         @lru_cache(None)
         def find_subsets(mask, k, curr_sum):
-            #nonlocal mask
             if k == 0:
                 return True
             if curr_sum == 0:
                 return find_subsets(mask, k-1, subset_sum)
             if curr_sum < 0:
                 return False
-            # if mask in cache:
-            #     return cache[mask]
-            
+
             for j in range(0, len(matchsticks)):
-                if mask & (1 << j) != 0: continue
-                #mask = mask ^ (1 << j)
-                
+                if mask & (1 << j) != 0: 
+                    continue
+
                 if find_subsets(mask ^ (1 << j), k, curr_sum - matchsticks[j]):
                     return True
 
-                #mask = mask ^ (1 << j)
-            
-            # cache[mask] = False
             return False
         
         total_sum = sum(matchsticks)
