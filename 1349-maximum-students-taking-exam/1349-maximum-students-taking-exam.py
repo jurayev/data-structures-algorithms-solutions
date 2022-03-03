@@ -25,7 +25,6 @@ class Solution:
         i,  j+1 -> right
         """
         max_booked = 0
-        #booked = set()
         rows, cols = len(seats), len(seats[0])
         
         @lru_cache(None)
@@ -39,17 +38,17 @@ class Solution:
                 curr_row_mask = 0
                 
             if r >= rows:
-                #print("count:", count, bin(curr_row_mask), bin(prev_row_mask))
                 max_booked = max(max_booked, count)
                 return
-            
-            book_seats(r, c+1, curr_row_mask, prev_row_mask, count) # skip
-            
+            # SKIP CURRENT SEAT
+            book_seats(r, c+1, curr_row_mask, prev_row_mask, count)
+            # CHECK IF CURRENT SEAT CAN BE TAKEN
             if seats[r][c] == "#" or curr_row_mask & (1 << max(c-1, 0)) != 0:
                 return            # upper left   # upper right   # left    # right
             for ith_seat_bit in [c-1, c+1]:
                 if 0 <= ith_seat_bit < cols and prev_row_mask & (1 << ith_seat_bit) != 0:
                     return
+            # TAKE CURRENT SEAT
             book_seats(r, c+1, curr_row_mask | (1 << c), prev_row_mask, count+1)
         
         book_seats(0, 0, 0, 0, 0)
