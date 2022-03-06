@@ -27,9 +27,9 @@ class Solution:
         best = 1
         for num in range(2, n):
             rem = n % num
-            last_mult = num + rem if rem < 2 else rem
+            mult = num + rem if rem < 2 else rem
             power = (n // num - 1) if rem < 2 else n // num
-            product = num ** power * last_mult
+            product = num ** power * mult
             best = max(best, product)
             
         return best
