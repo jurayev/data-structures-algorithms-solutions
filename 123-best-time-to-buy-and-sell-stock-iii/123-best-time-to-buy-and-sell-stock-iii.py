@@ -1,5 +1,22 @@
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
+        n = len(prices)
+        trans = 4
+        profits = [[0 for i in range(trans+1)] for i in range(n)]
+        for k in range(1, trans+1):
+            profits[0][k] = -prices[0] if k % 2 == 1 else 0
+        for i in range(1, n):
+            for k in range(1, trans+1):
+                if k % 2 == 1:
+                    # buy
+                    profits[i][k] = max(profits[i-1][k], -prices[i] + profits[i-1][k-1])
+                else:
+                    # sell
+                    profits[i][k] = max(profits[i-1][k], prices[i] + profits[i-1][k-1])
+                    
+        return profits[n-1][k]
+    
+    def maxProfit1(self, prices: List[int]) -> int:
         """
          0 1 2 3 4 5 6 7
         [3,3,5,0,0,3,1,4] k = 2 ans = 6
@@ -8,13 +25,12 @@ class Solution:
                  i j
                      i
                        j
-           buy  sell
-        1. 3     5
-        2. 3     5
-        
-            0  1   2 3 4 5 6 7
-         b  3  3   3 0 0 3 1 4
-         s  0  0   2 0 0 3 3 3
+          0 1  2  3 4
+          0 0  0  0 0
+        3 0 -3 0 -3 0
+        4 0 -3 1 -3 1
+        5 0 -5 2 -5 2
+          0 0  0  0 0
          
          4 3 2 1 0
          b s b s
@@ -27,6 +43,9 @@ class Solution:
                 return 0
             if k == 0:
                 return 0
+                
+        Time O(N)
+        Space O(N)
         """
         @lru_cache
         def get_max_profit(i, k):
