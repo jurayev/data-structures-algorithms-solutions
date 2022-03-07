@@ -28,19 +28,14 @@ class Solution:
             if k == 0:
                 return 0
         """
-        cache = defaultdict(dict)
         @lru_cache
         def get_max_profit(i, k):
             if i >= len(prices):
                 return 0
-            # if i in cache:
-            #     return cache[i]
             if k == 0:
                 return 0
             
             # buy or sell, 4 transactions
-            # hold
-            
             can_buy = k % 2 == 0
             # hold
             profit = get_max_profit(i+1, k)
@@ -50,7 +45,6 @@ class Solution:
             else:
                 # sell
                 profit = max(profit, prices[i] + get_max_profit(i+1, k-1))
-            # cache[i] = max_profit
             return profit
         
         return get_max_profit(0, 4)
