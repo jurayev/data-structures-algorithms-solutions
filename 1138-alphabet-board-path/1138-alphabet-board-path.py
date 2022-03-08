@@ -17,15 +17,17 @@ class Solution:
         aziggo
         
         azy -> DDDDD!URRRR! (only one path!)
+        zdz
         """
         
         board = ["abcde", "fghij", "klmno", "pqrst", "uvwxy", "z"]
         path = []
         row, col = 0, 0 # 5, 1
-        rows, cols = len(board), len(board[-1])
+        rows, cols = len(board), len(board[0])
         for letter in target:
-            new_row, new_col = self.search(board, letter)
+            new_row, new_col = self.search(cols, letter)
             x_axis, y_axis = "", ""
+            # manhattan distance
             if row < new_row:
                 moves = new_row - row
                 y_axis = "D" * moves
@@ -50,11 +52,15 @@ class Solution:
             
         return "".join(path)
     
-    def search(self, board, letter):
-        for row in range(len(board)):
-            for col in range(len(board[0])):
-                if board[row][col] == letter:
-                    return row, col
-        return 0, 0
+    def search(self, cols, letter):
+        # in constant time
+        index = ord(letter) - ord("a")
+        row = index // cols # 4 // 5 -> 0 $ 5 // 5 -> 1 # 9 // 5 -> 1 # 26 // 5 -> 5
+        col = index % cols
+        # for row in range(len(board)):
+        #     for col in range(len(board[0])):
+        #         if board[row][col] == letter:
+        #             return row, col
+        return row, col
         
         
