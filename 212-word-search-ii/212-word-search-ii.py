@@ -34,6 +34,8 @@ class Solution:
         abc
         abd
         abr
+        Time O(M * 4^L), L is the word with max len
+        Space O(N)
         """
         found_words = []
         trie = Trie(words)
