@@ -1,18 +1,13 @@
 class Solution:
     def alphabetBoardPath(self, target: str) -> str:
         """
-        
-        l -> 4 moves
-        
-        
-        
         1. Return just min moves
-                1. Sol Time O(K * N), Space O(1) -> Linear scan from 0,0 pos
-                2. Sol Time O(K log N), Space O(1) -> bin search scan from 0,0 pos
+                1. Sol Time O(N), Space O(1) -> Linear scan from 0,0 pos
         2. Return the sequence of min moves 
-                -> remember the last position and add moves taken from last pos to the current
+                1. Sol Time O(N), Space O(K) -> Linear scan from 0,0 pos
         3. Return the sequence of min moves, it is still sorted, there might be duplicates
-        4. Return the sequence of min moves if letters are placed arbitrary on the board -> BFS to find shortest path O(K* N^2)
+        4. Return the sequence of min moves if letters are placed arbitrary on the board -> BFS to find shortest path 
+                1. Sol Time O(N * (V+E)), Space(K + V + E)
         
         aziggo
         
@@ -26,11 +21,48 @@ class Solution:
         "uvwxy", 
         "z"
         
-        "leet"
-        "code"
-        "zaz"
-        "azdz"
+        "leet" -> "DDR!UURRR!!DDD!"
+        "code" -> "RR!DDRR!UUL!R!"
+        "zaz"  -> "DDDDD!UUUUU!DDDDD!"
+        "azdz" -> "!DDDDD!UUUUURRR!LLLDDDDD!"
+        "a"    -> "!"
+        
+        z -> corner case -> row = 5, col = 1
         """
+        return self.find_shortest_path(target)
+        return self.manhattan_distance(target)
+    
+    def find_shortest_path(self, target):
+        path = ""
+        row, col = 0, 0
+        rows, cols = 6, 5
+        for letter in target:
+            next_row, next_col = self.get_position(cols, letter)
+            path += self.bfs(row, col, next_row, next_col, rows, cols) + "!"
+            row, col = next_row, next_col
+        return path
+    
+    def get_connected(self, row, col):
+        dirs = [(-1, 0, "U"), (0, -1, "L"), (0, 1, "R"), (1, 0, "D")] # make this order
+        return [(row+r, col+c, move) for r, c, move in dirs]
+    
+    def bfs(self, start_row, start_col, target_row, target_col, rows, cols):
+        visited = set()
+        queue = deque([(start_row, start_col, "")])
+        while queue:
+            row, col, path = queue.popleft()
+            if row == target_row and col == target_col:
+                return path
+            visited.add((row, col))
+            
+            for next_row, next_col, move in self.get_connected(row, col):
+                is_visited = (next_row, next_col) in visited
+                if 0 <= next_row < rows and 0 <= next_col < cols and not is_visited:
+                    queue.append((next_row, next_col, path + move))
+            
+        return ""
+        
+    def manhattan_distance(self, target):
         path = []
         row, col = 0, 0
         for letter in target:
