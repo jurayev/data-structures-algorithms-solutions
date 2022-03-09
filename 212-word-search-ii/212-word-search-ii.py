@@ -47,17 +47,22 @@ class Solution:
         if not (0 <= row < len(board) and 0 <= col < len(board[0])):
             return
         letter = board[row][col]
-        node = node.children.get(letter)
-        if not node or letter == "#":
+        next_node = node.children.get(letter)
+        if letter == "#":
             return
-        if node.word:
-            found_words.append(node.word)
-            node.word = None
+        if not next_node:
+            return
+        if next_node.word:
+            found_words.append(next_node.word)
+            next_node.word = None
         board[row][col] = "#"
-        self.dfs(row+1, col, board, node, found_words)
-        self.dfs(row-1, col, board, node, found_words)
-        self.dfs(row, col+1, board, node, found_words)
-        self.dfs(row, col-1, board, node, found_words)
+        self.dfs(row+1, col, board, next_node, found_words)
+        self.dfs(row-1, col, board, next_node, found_words)
+        self.dfs(row, col+1, board, next_node, found_words)
+        self.dfs(row, col-1, board, next_node, found_words)
+        # remove matched node in Trie
+        if not next_node.children:
+            node.children.pop(letter)
         board[row][col] = letter
         
 class Trie:
