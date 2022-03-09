@@ -18,49 +18,44 @@ class Solution:
         
         azy -> DDDDD!URRRR! (only one path!)
         zdz
-        """
         
-        board = ["abcde", "fghij", "klmno", "pqrst", "uvwxy", "z"]
+        "abcde", 
+        "fghij", 
+        "klmno", 
+        "pqrst", 
+        "uvwxy", 
+        "z"
+        
+        "leet"
+        "code"
+        "zaz"
+        "azdz"
+        """
         path = []
-        row, col = 0, 0 # 5, 1
-        rows, cols = len(board), len(board[0])
+        row, col = 0, 0
         for letter in target:
-            new_row, new_col = self.search(cols, letter)
-            x_axis, y_axis = "", ""
+            new_row, new_col = self.get_position(5, letter)
+            moves = ""
             # manhattan distance
+            if row > new_row:
+                moves += "U" * (row - new_row)
+            if col > new_col:
+                moves += "L" * (col - new_col)
             if row < new_row:
-                moves = new_row - row
-                y_axis = "D" * moves
-            elif row > new_row:
-                moves = row - new_row
-                y_axis = "U" * moves
+                moves += "D" * (new_row - row)
             if col < new_col:
-                moves = new_col - col
-                x_axis = "R" * moves
-            elif col > new_col:
-                moves = col - new_col
-                x_axis = "L" * moves
-            need_swap = new_row == rows-1 and new_col == 0
-            if need_swap:
-                path.append(x_axis)
-                path.append(y_axis)
-            else:
-                path.append(y_axis)
-                path.append(x_axis)
+                moves += "R" * (new_col - col)
+            path.append(moves)
             path.append("!")
             row, col = new_row, new_col
             
         return "".join(path)
     
-    def search(self, cols, letter):
+    def get_position(self, cols, letter):
         # in constant time
         index = ord(letter) - ord("a")
-        row = index // cols # 4 // 5 -> 0 $ 5 // 5 -> 1 # 9 // 5 -> 1 # 26 // 5 -> 5
+        row = index // cols
         col = index % cols
-        # for row in range(len(board)):
-        #     for col in range(len(board[0])):
-        #         if board[row][col] == letter:
-        #             return row, col
         return row, col
         
         
