@@ -1,33 +1,3 @@
-class Solution1:
-    def findWords(self, board: List[List[str]], words: List[str]) -> List[str]:
-        """
-        O(r*c* len(words)) time
-        O(r*c) space
-        """
-        found_words: Set = set()
-        for row in range(len(board)):
-            for col in range(len(board[0])):
-                for word in words:
-                    self.dfs(row, col, board, word, 0, set(), found_words)
-                
-        return list(found_words)       
-    
-    def dfs(self, row: int, col: int, board: List[List[str]], word:str, word_idx:int, visiting: Set, found_words: Set):
-        if word_idx >= len(word): 
-            found_words.add(word)
-            return
-        if not self.in_bounds(board, row, col): return
-        if (row, col) in visiting: return
-        if board[row][col] == word[word_idx] and word not in found_words:
-            visiting.add((row, col))
-            self.dfs(row+1, col, board, word, word_idx+1, visiting, found_words)
-            self.dfs(row-1, col, board, word, word_idx+1, visiting, found_words)
-            self.dfs(row, col+1, board, word, word_idx+1, visiting, found_words)
-            self.dfs(row, col-1, board, word, word_idx+1, visiting, found_words)
-            visiting.remove((row, col))
-            
-    def in_bounds(self, board, row, col):
-        return 0 <= row < len(board) and 0 <= col < len(board[0])
 class Solution:
     def findWords(self, board: List[List[str]], words: List[str]) -> List[str]:
         """
