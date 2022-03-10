@@ -12,12 +12,6 @@ class LogSystem:
 
     def put(self, ts_id: int, timestamp: str) -> None:
         insort(self.logs, (timestamp, ts_id))
-        # insort(self.ss_logs, (timestamp[:19], ts_id))
-        # insort(self.ms_logs, (timestamp[:16], ts_id))
-        # insort(self.hh_logs, (timestamp[:13], ts_id))
-        # insort(self.dd_logs, (timestamp[:10], ts_id))
-        # insort(self.mm_logs, (timestamp[:7], ts_id))
-        # insort(self.yy_logs, (timestamp[:4], ts_id))
 
     def retrieve(self, start: str, end: str, granularity: str) -> List[int]:
         size = self.mappings[granularity]
@@ -25,8 +19,6 @@ class LogSystem:
         leftmost_idx = bisect_left(self.logs, start[:size], key = lambda x: x[0][:size])
         rightmost_idx = bisect_right(self.logs, end[:size], key = lambda x: x[0][:size])
         range_ids = []
-        # print(self.logs)
-        # print(leftmost_idx, rightmost_idx)
         for i in range(leftmost_idx, rightmost_idx):
             ts, ts_id = self.logs[i]
             range_ids.append(ts_id)
