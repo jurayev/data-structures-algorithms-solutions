@@ -22,11 +22,9 @@ class Solution:
         stack = []
         
         for letter in s:
-            added = 0
-            while stack and stack[-1] == letter:
+            if stack and stack[-1] == letter:
                 stack.pop()
-                added += 1
-            if not added:  
+            else:
                 stack.append(letter)
             
         return "".join(stack)
