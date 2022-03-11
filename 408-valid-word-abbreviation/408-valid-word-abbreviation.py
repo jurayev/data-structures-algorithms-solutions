@@ -10,29 +10,25 @@ class Solution:
         "apple"
             i
         "a2e"
-           c
+           j
          ""
         """
-        size = ""
-        i = 0
-        for char in abbr:
-            #print(size, char, word[i], i)
-            if char.isdigit():
-                size += char
-                continue
-            elif size:
-                if str(int(size)) != size or not int(size):
-                    return False
-                i += int(size)
-                size = ""
-            if i < len(word) and char == word[i]:
+        i, j = 0, 0
+        word += "#"
+        abbr += "#"
+        while i < len(word) and j < len(abbr):
+            if word[i] == abbr[j]:
                 i += 1
-            else:
-                #print("exit")
+                j += 1
+            elif abbr[j] == "0":
                 return False
-        #print(i)
-        if size:
-            if str(int(size)) != size or not int(size):
-                    return False
-            i += int(size)
-        return i == len(word)
+            elif abbr[j].isdigit():
+                size = 0
+                while j < len(abbr) and abbr[j].isdigit():
+                    size *= 10
+                    size += int(abbr[j])
+                    j += 1
+                i += size
+            else:
+                break
+        return j == len(abbr) and i == len(word)
