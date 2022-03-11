@@ -14,8 +14,8 @@ class Solution:
          ""
         """
         i, j = 0, 0
-        word += "#"
-        abbr += "#"
+        #word += "#"
+        #abbr += "#"
         while i < len(word) and j < len(abbr):
             if word[i] == abbr[j]:
                 i += 1
