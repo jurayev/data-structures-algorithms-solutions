@@ -12,17 +12,15 @@ class Node:
 
 class Solution:
     def lowestCommonAncestor(self, node1: 'Node', node2: 'Node') -> 'Node':
-        node1_path = self.find_root(node1)
-        node2_path = self.find_root(node2)
-        for node in node2_path:
-            if node in node1_path:
-                return node
-        return node1
+        nodes = set()
+        self.find_root(node1, nodes)
+        node = self.find_root(node2, nodes)
+        return node
     
-    def find_root(self, node):
+    def find_root(self, node, nodes):
         if not node:
-            return []
-        
-        path = [node]
-        path.extend( self.find_root(node.parent))
-        return path
+            return None
+        if node.val in nodes:
+            return node
+        nodes.add(node.val)
+        return self.find_root(node.parent, nodes)
