@@ -30,6 +30,7 @@ class Solution:
         1: [8]
         2: [7]
         """
+        return self.bfs(root)
         levels = defaultdict(defaultdict)
         self.dfs(root, 0, 0, levels)
 
@@ -53,6 +54,21 @@ class Solution:
         levels[column][row].append(node.val)
         self.dfs(node.left, column - 1, row+1, levels)
         self.dfs(node.right, column + 1, row+1, levels)
-    
+        
+    def bfs(self, root):
+        order = defaultdict(list)
+        if not root:
+            return []
+        q = deque([(root, 0)])
+        while q:
+            node, column = q.popleft()
+            order[column].append(node.val)
+            if node.left:
+                q.append((node.left, column - 1))
+            if node.right:
+                q.append((node.right, column + 1))
+        vertical_order = [(key, value) for key, value in order.items()]
+        vertical_order.sort(key=lambda x: x[0])
+        return [order for _, order in vertical_order]
         
         
