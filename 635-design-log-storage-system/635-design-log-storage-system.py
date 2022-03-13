@@ -1,5 +1,23 @@
 from bisect import insort, bisect_left, bisect_right
 """
+Timestamps format
+Year:Month:Day:Hour:Minute:Second (2017:01:01:23:59:59)
+
+Examples:
+
+LogSystem logSystem = new LogSystem()
+logSystem.put(1, "2017:01:01:23:59:59")
+logSystem.put(2, "2017:01:01:22:59:59")
+logSystem.put(3, "2016:01:01:00:00:00";
+
+logSystem.retrieve("2016:01:01:01:01:01", "2017:01:01:23:00:00", "Year")
+[3,2,1]
+logSystem.retrieve("2016:01:01:01:01:01", "2017:01:01:23:00:00", "Hour")
+[2,1]
+
+Brute force apprach:
+        put -> O(1)
+        get -> (N)
 Bin search approach:
         put -> O(N)
         get -> (log N)
