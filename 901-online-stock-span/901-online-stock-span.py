@@ -1,6 +1,6 @@
 class StockSpanner:
     """
-    Warm-up: Easy stack question
+    Warm-up: Easy DP question
     
     TC O(2n)
     SC O(n)  - keeping intermediate result in the stack
