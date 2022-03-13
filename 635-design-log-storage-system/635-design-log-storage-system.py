@@ -1,4 +1,13 @@
 from bisect import insort, bisect_left, bisect_right
+"""
+Bin search approach:
+        put -> O(N)
+        get -> (log N)
+BST approach: (TreeMap(Java), SortedList(Py), Set(C++))
+        put -> O(log N)
+        get -> O(log N)
+
+"""
 class LogSystem:
 
     def __init__(self):
