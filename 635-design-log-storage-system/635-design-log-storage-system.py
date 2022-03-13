@@ -1,5 +1,7 @@
 from bisect import insort, bisect_left, bisect_right
 """
+Warm-up: Easy Bin search question
+
 Timestamps format
 Year:Month:Day:Hour:Minute:Second (2017:01:01:23:59:59)
 
