@@ -6,6 +6,9 @@ class Solution:
         
         Input: alphabet = "ab", words = ["ad","bd","aaab","baa","badab"]
         Output: 7
+        
+        Time O(N+M)
+        Space O(N+M+A)
         """
         alphabet = collections.Counter(allowed)
         counter = len(words)
