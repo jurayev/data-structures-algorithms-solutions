@@ -1,6 +1,8 @@
 class Solution:
     def alphabetBoardPath(self, target: str) -> str:
         """
+        Warm-up: https://leetcode.com/problems/count-the-number-of-consistent-strings/
+        Main Problem:
         1. Return just min moves
                 1. Sol Time O(N), Space O(1) -> Linear scan from 0,0 pos
         2. Return the sequence of min moves 
