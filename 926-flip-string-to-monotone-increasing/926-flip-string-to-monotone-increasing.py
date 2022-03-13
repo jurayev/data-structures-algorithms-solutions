@@ -6,18 +6,22 @@ class Solution:
         """
         "010110"
          011233
-         322110
+         222
          
         """
         size = len(bin_string)
-        total_ones = 0
-        flip_count = 0
-        for idx in range(size):
+        prefix_ones = [0 for _ in range(size+1)]
+
+        for idx in range(0, size):
             if bin_string[idx] == "1":
-                total_ones += 1
+                prefix_ones[idx+1] = prefix_ones[idx] + 1
             else:
-                flip_count += 1
-            flip_count = min(flip_count, total_ones)
+                prefix_ones[idx+1] = prefix_ones[idx]
+        
+        flip_count = size
+        for idx in range(size+1):
+            zeros_count = size - idx - (prefix_ones[-1] - prefix_ones[idx])
+            flip_count = min(flip_count, prefix_ones[idx] + zeros_count)
         # suffix_size = size - suffix_start_idx
         # total_zeros = suffix_size - total_ones
         return flip_count
