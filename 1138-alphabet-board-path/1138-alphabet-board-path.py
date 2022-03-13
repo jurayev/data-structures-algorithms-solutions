@@ -21,15 +21,16 @@ class Solution:
         "uvwxy", 
         "z"
         
-        "leet" -> "DDR!UURRR!!DDD!"
-        "code" -> "RR!DDRR!UUL!R!"
-        "zaz"  -> "DDDDD!UUUUU!DDDDD!"
-        "azdz" -> "!DDDDD!UUUUURRR!LLLDDDDD!"
-        "a"    -> "!"
+        "leet" -> 15, "DDR!UURRR!!DDD!"
+        "code" -> 14, "RR!DDRR!UUL!R!"
+        "zaz"  -> 18, "DDDDD!UUUUU!DDDDD!"
+        "azdz" -> 25, "!DDDDD!UUUUURRR!LLLDDDDD!"
+        "a"    -> 1,  "!"
+        "b"    -> 2,  "R!"
         
         z -> corner case -> row = 5, col = 1
         """
-        return self.find_shortest_path(target)
+        #return self.find_shortest_path(target)
         return self.manhattan_distance(target)
     
     def find_shortest_path(self, target):
@@ -80,7 +81,7 @@ class Solution:
             path.append(moves)
             path.append("!")
             row, col = new_row, new_col
-            
+        print(len("".join(path)))    
         return "".join(path)
     
     def get_position(self, cols, letter):
