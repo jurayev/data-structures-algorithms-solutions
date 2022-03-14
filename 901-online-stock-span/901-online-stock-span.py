@@ -1,6 +1,6 @@
 class StockSpanner:
     """
-    Warm-up: Easy DP question
+    Warm-up: Easy Bits Manipulation: https://leetcode.com/problems/counting-bits
     
     TC O(2n)
     SC O(n)  - keeping intermediate result in the stack
