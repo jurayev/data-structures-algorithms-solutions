@@ -9,10 +9,10 @@ class Solution:
         words = ["oath","pea","eat","rain", "hi", "hih"]
         Output: ["eat","oath", "hi"]
         
-        
-        abc
-        abd
-        abr
+        ab              -> visited
+        abc          -> visited
+        abcd      -> visited
+        abcde -> visited
         Time O(M * 4^L), L is the word with max len
         Space O(N)
         """
