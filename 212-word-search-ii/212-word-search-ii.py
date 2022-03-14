@@ -1,6 +1,15 @@
 class Solution:
     def findWords(self, board: List[List[str]], words: List[str]) -> List[str]:
         """
+        Input: 
+        board = [["o","a","a","n"],
+                 ["e","t","a","e"],
+                 ["i","h","k","r"],
+                 ["i","f","l","v"]], 
+        words = ["oath","pea","eat","rain", "hi", "hih"]
+        Output: ["eat","oath", "hi"]
+        
+        
         abc
         abd
         abr
