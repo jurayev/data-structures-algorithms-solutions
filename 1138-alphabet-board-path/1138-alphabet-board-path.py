@@ -1,21 +1,13 @@
 class Solution:
     def alphabetBoardPath(self, target: str) -> str:
         """
-        Warm-up: https://leetcode.com/problems/count-the-number-of-consistent-strings/
+        Warm-up: https://leetcode.com/problems/single-row-keyboard/
+
         Main Problem:
-        1. Return just min moves
-                1. Sol Time O(N), Space O(1) -> Linear scan from 0,0 pos
-        2. Return the sequence of min moves 
-                1. Sol Time O(N), Space O(K) -> Linear scan from 0,0 pos
-        3. Return the sequence of min moves, it is still sorted, there might be duplicates
-        4. Return the sequence of min moves if letters are placed arbitrary on the board -> BFS to find shortest path 
-                1. Sol Time O(N * (V+E)), Space(K + V + E)
+        1. Manhattan Distance Sol. Time O(N), Space (output)
+        2. BFS Sol. Time O(N * (V+E)), Space(output + V + E)
         
-        aziggo
-        
-        azy -> DDDDD!URRRR! (only one path!)
-        zdz
-        
+        Multi-row keyboard
         "abcde", 
         "fghij", 
         "klmno", 
