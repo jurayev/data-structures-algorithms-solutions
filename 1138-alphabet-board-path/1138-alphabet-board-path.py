@@ -3,6 +3,16 @@ class Solution:
         """
         Warm-up: https://leetcode.com/problems/single-row-keyboard/
 
+        Return the time it takes to type the word using 1 finger only, you can assume that your finger always starts at index 0
+        
+        Ex 1.
+        Input: keyboard = "abcdefghijklmnopqrstuvwxyz", word = "cba"
+        Output: 4
+        Ex 2.
+        Input: keyboard = "pqrstuvwxyzabcdefghijklmno", word = "code"
+        Output: 37
+ 
+ 
         Main Problem:
         1. Manhattan Distance Sol. Time O(N), Space (output)
         2. BFS Sol. Time O(N * (V+E)), Space(output + V + E)
@@ -14,19 +24,47 @@ class Solution:
         "pqrst", 
         "uvwxy", 
         "z"
-        
-        "leet" -> 15, "DDR!UURRR!!DDD!"
-        "code" -> 14, "RR!DDRR!UUL!R!"
-        "zaz"  -> 18, "DDDDD!UUUUU!DDDDD!"
-        "azdz" -> 25, "!DDDDD!UUUUURRR!LLLDDDDD!"
-        "a"    -> 1,  "!"
-        "b"    -> 2,  "R!"
+         Input -> Output
+        "leet" -> "DDR!UURRR!!DDD!"
+        "code" -> "RR!DDRR!UUL!R!"
+        "zaz"  -> "DDDDD!UUUUU!DDDDD!"
+        "azdz" -> "!DDDDD!UUUUURRR!LLLDDDDD!"
+        "a"    -> "!"
+        "b"    -> "R!"
         
         z -> corner case -> row = 5, col = 1
         """
         #return self.find_shortest_path(target)
         return self.manhattan_distance(target)
+        
+    def manhattan_distance(self, target):
+        path = []
+        row, col = 0, 0
+        for letter in target:
+            new_row, new_col = self.get_position(5, letter)
+            moves = ""
+            # manhattan distance
+            if row > new_row:
+                moves += "U" * (row - new_row)
+            if col > new_col:
+                moves += "L" * (col - new_col)
+            if row < new_row:
+                moves += "D" * (new_row - row)
+            if col < new_col:
+                moves += "R" * (new_col - col)
+            path.append(moves)
+            path.append("!")
+            row, col = new_row, new_col   
+        return "".join(path)
     
+    def get_position(self, cols, letter):
+        # in constant time
+        index = ord(letter) - ord("a")
+        row = index // cols
+        col = index % cols
+        return row, col
+    
+        
     def find_shortest_path(self, target):
         path = ""
         row, col = 0, 0
@@ -56,33 +94,5 @@ class Solution:
                     queue.append((next_row, next_col, path + move))
             
         return ""
-        
-    def manhattan_distance(self, target):
-        path = []
-        row, col = 0, 0
-        for letter in target:
-            new_row, new_col = self.get_position(5, letter)
-            moves = ""
-            # manhattan distance
-            if row > new_row:
-                moves += "U" * (row - new_row)
-            if col > new_col:
-                moves += "L" * (col - new_col)
-            if row < new_row:
-                moves += "D" * (new_row - row)
-            if col < new_col:
-                moves += "R" * (new_col - col)
-            path.append(moves)
-            path.append("!")
-            row, col = new_row, new_col
-        print(len("".join(path)))    
-        return "".join(path)
-    
-    def get_position(self, cols, letter):
-        # in constant time
-        index = ord(letter) - ord("a")
-        row = index // cols
-        col = index % cols
-        return row, col
         
         
