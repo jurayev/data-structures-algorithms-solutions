@@ -1,3 +1,36 @@
+class Solution1:
+
+    def multiply(self, elem1, elem2):
+        return elem1 * elem2
+
+    def findRLEArray(self, encoded1, encoded2):
+        p1, p2 = 0, 0
+        output = []
+        while p1 < len(encoded1) and p2 < len(encoded2):
+            freq1, freq2 = encoded1[p1][1], encoded2[p2][1]
+            if freq1 == freq2:
+                element = self.multiply(encoded1[p1][0], encoded2[p2][0])
+                freq = freq1
+                p1 += 1
+                p2 += 1
+
+            elif freq1 < freq2:
+                element = self.multiply(encoded1[p1][0], encoded2[p2][0])
+                freq = min(freq1, freq2)
+                p1 += 1
+
+            else:
+                element = self.multiply(encoded1[p1][0], encoded2[p2][0])
+                freq = min(freq1, freq2)
+                p2 += 1
+
+            if len(output) and output[-1][0] == element:
+                output[-1][1] += freq
+            else:
+                output.append([element, freq])
+
+        return output
+
 class Solution:
     def findRLEArray(self, encoded1: List[List[int]], encoded2: List[List[int]]) -> List[List[int]]:
         """
