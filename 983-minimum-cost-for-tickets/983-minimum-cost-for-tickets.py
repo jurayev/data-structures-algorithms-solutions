@@ -29,30 +29,27 @@ class Solution:
             4. answer -> min_cost(0, 0)
             
             Complexity: 
-                Time O(N^3)
-                Space O(N^3)
+                Time O(N)
+                Space O(N)
         [1,4,6,7,8,20]
          i
            i
         
         """
-        #total_days = [day for day in range(days[0], days[-1]+1)]
+        durations = [1, 7, 30]
+        
         @lru_cache(None)
         def min_cost(day_i):
             if day_i >= len(days):
                 return 0
             
-            cost = float("inf")
+            minimum_cost = float("inf")
             current_day = days[day_i]
-            index = bisect.bisect_left(days, current_day+1)
-            cost = min(cost, min_cost(index) + costs[0])
-            
-            index = bisect.bisect_left(days, current_day+7)
-            cost = min(cost, min_cost(index) + costs[1])
-            
-            index = bisect.bisect_left(days, current_day+30)
-            cost = min(cost, min_cost(index) + costs[2])
-            return cost
+            for cost, duration in zip(costs, durations):
+                next_day_i = bisect.bisect_left(days, current_day+duration)
+                minimum_cost = min(minimum_cost, min_cost(next_day_i) + cost)
+
+            return minimum_cost
         
         return min_cost(0)
         
