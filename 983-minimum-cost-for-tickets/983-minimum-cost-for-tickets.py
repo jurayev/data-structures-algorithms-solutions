@@ -40,7 +40,7 @@ class Solution:
         day_set = set(days)
         
         @lru_cache(None)
-        def min_cost1(day):
+        def min_cost(day):
             # DP + linear search for 365 day
             # Time O(W), Space O(W), W is one calendar year
             if day > 365:
@@ -68,7 +68,7 @@ class Solution:
 
             return minimum_cost
         
-        return min_cost_bin_search(0)
+        return min_cost(0)
         
         
         
