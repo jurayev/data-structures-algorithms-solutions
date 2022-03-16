@@ -37,9 +37,26 @@ class Solution:
         
         """
         durations = [1, 7, 30]
+        day_set = set(days)
         
         @lru_cache(None)
-        def min_cost(day_i):
+        def min_cost1(day):
+            # DP + linear search for 365 day
+            # Time O(W), Space O(W), W is one calendar year
+            if day > 365:
+                return 0
+            if day not in day_set:
+                return min_cost(day+1)
+            minimum_cost = float("inf")
+            for cost, duration in zip(costs, durations):
+                minimum_cost = min(minimum_cost, min_cost(day+duration) + cost)
+                
+            return minimum_cost
+            
+        @lru_cache(None)
+        def min_cost_bin_search(day_i):
+            # DP + bin search the next day to travel
+            # Time O(NlogN), Space O(N)
             if day_i >= len(days):
                 return 0
             
@@ -47,11 +64,11 @@ class Solution:
             current_day = days[day_i]
             for cost, duration in zip(costs, durations):
                 next_day_i = bisect.bisect_left(days, current_day+duration)
-                minimum_cost = min(minimum_cost, min_cost(next_day_i) + cost)
+                minimum_cost = min(minimum_cost, min_cost_bin_search(next_day_i) + cost)
 
             return minimum_cost
         
-        return min_cost(0)
+        return min_cost_bin_search(0)
         
         
         
