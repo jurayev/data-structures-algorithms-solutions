@@ -1,6 +1,30 @@
 class Solution:
     def mincostTickets(self, days: List[int], costs: List[int]) -> int:
         """
+        days = [1,4,6,7,8,11], costs = [2,7,15], durations = [1,7,30]
+        
+        [0,1,2,3,4,5,6,7,8,9,10,11]
+        [0,2,2,2,4,4,6,7,9,9, 9, 11]
+         i-1
+         i-7
+         i-30
+        """
+        max_days = days[-1]+1
+        min_costs = [0] * max_days
+        durations = [1, 7, 30]
+        
+        for day in range(1, max_days):
+            min_costs[day] = float("inf")
+            for cost, duration in zip(costs, durations):
+                if day in days:
+                    day_pass = max(day-duration, 0)
+                    min_costs[day] = min(min_costs[day], min_costs[day_pass] + cost)
+                else:
+                    min_costs[day] = min_costs[day-1]
+        return min_costs[max_days-1]
+        
+    def mincostTicketsRecursion(self, days: List[int], costs: List[int]) -> int:
+        """
         days = [1,4,6,7,8,20], costs = [2,7,15]
         
         
