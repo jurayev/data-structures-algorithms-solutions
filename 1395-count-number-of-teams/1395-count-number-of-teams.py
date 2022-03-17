@@ -35,7 +35,8 @@ class Solution:
             if j >= len:
                 return
         c: answer = max_teams(0,1,0,true) + max_teams(0,1,0,false)
-        
+        Time O(N^3)
+        Space O(N^3)
         
         [2,5,3,4,1]
          i j
