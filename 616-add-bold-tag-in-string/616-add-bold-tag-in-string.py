@@ -19,16 +19,14 @@ class Solution:
             for end_idx in range(start_idx+1, n+1):
                 word = s[start_idx:end_idx]
                 if word in words_set:
-                    intervals.append([start_idx, end_idx])
-        #print(intervals)           
+                    intervals.append([start_idx, end_idx])          
         merged = self.merge(intervals)
-        #print(merged)
         output = list(s)
         shifted_pos = 0
         start_tag = "<b>"
         end_tag = "</b>"
         """
-        <>aaabbcc
+        <b>aaabbc</b>c
         
         [[0,5]]
         """
