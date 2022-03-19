@@ -21,22 +21,52 @@ class FreqStack:
                     SC O(M), M unique numbers
         [5:1, 7:1, 4:1, 3:1, 5:2, 7:2, 4:2, 5:3, 0:1]
         
+        val_freq = 
+        5: 3
+        7: 2
+        
+        freq_stacks
+        0: [1]
+        1: [5, 7, 4, 3]
+        2: [5, 7, 4]
+        3: []
+        4: [1,1,3]
+        
         
     """
     def __init__(self):
-        self.counters = Counter()
-        self.stack = []
+        self.val_freq = Counter()
+        self.freq_stacks = defaultdict(list)
+        self.max_freq = 0
 
     def push(self, val: int) -> None:
-        self.counters[val] += 1
-        insort_right(self.stack, (self.counters[val], val), key=lambda x: x[0])
+        self.val_freq[val] += 1
+        freq = self.val_freq[val]
+        self.max_freq = max(self.max_freq, freq)
+        self.freq_stacks[freq].append(val)
         
     def pop(self) -> int:
-        if not self.stack:
-            return -1
-        counter, val = self.stack.pop()
-        self.counters[val] -= 1
-        return val
+        removed_val = self.freq_stacks[self.max_freq].pop()
+        self.val_freq[removed_val] -= 1
+        
+        if not self.freq_stacks[self.max_freq]:
+            self.max_freq -= 1 
+        return removed_val
+        
+#     def __init__(self):
+#         self.counters = Counter()
+#         self.stack = []
+
+#     def push(self, val: int) -> None:
+#         self.counters[val] += 1
+#         insort_right(self.stack, (self.counters[val], val), key=lambda x: x[0])
+        
+#     def pop(self) -> int:
+#         if not self.stack:
+#             return -1
+#         counter, val = self.stack.pop()
+#         self.counters[val] -= 1
+#         return val
 
 
 # Your FreqStack object will be instantiated and called as such:
