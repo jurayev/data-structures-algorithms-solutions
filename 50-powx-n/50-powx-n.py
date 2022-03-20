@@ -1,8 +1,19 @@
 class Solution:
     def myPow(self, x: float, n: int) -> float:
         """
-        2^3 -> 8
+        2^4 -> 16
         
+        n = 4 -> 4*4  -> 16
+        n = 2 -> 2*2 -> 4
+        n = 1 -> 1*1*2 -> 2
+        n = 0 -> 1
+        
+        keep dividing n // 2
+        if n is even -> power of two
+        if n is odd -> power of two * x
+        
+        Time O(logN)
+        Space O(logN)
         """
         if n < 0:
             x = 1 / x
