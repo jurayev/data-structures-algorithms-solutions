@@ -4,5 +4,17 @@ class Solution:
         2^3 -> 8
         
         """
+        if n < 0:
+            x = 1 / x
+            n = -n
+        return self.fast_pow(x, n)
+    
+    def fast_pow(self, x, n):
+        if n == 0:
+            return 1.0
         
-        return x**n
+        half = self.fast_pow(x, n // 2)
+        if n % 2 == 0:
+            return half * half
+        else:
+            return half * half * x
