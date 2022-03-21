@@ -11,6 +11,30 @@
 #         self.right = right
 class Solution:
     def sortedListToBST(self, head: Optional[ListNode]) -> Optional[TreeNode]:
+        self.head = head
+        node = head
+        size = 0
+        while node:
+            size += 1
+            node = node.next
+
+        return self.make_bst(0, size-1)
+        
+    def make_bst(self, left_idx, right_idx):
+        if left_idx > right_idx:
+            return None
+        mid_idx = (left_idx + right_idx) // 2
+        left_tree = self.make_bst(left_idx, mid_idx-1)
+        
+        tree = TreeNode(self.head.val)
+        self.head = self.head.next
+        
+        right_tree = self.make_bst(mid_idx+1, right_idx)
+        tree.left = left_tree
+        tree.right = right_tree
+        return tree
+        
+    def sortedListToBST1(self, head: Optional[ListNode]) -> Optional[TreeNode]:
         """
         [-10,-3,0,5,9]
         
