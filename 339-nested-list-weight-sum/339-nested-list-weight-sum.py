@@ -43,6 +43,18 @@
 
 class Solution:
     def depthSum(self, nested_list: List[NestedInteger]) -> int:
+        total_sum = 0
+        queue = deque([(nested_list, 1)])
+        while queue:
+            nested_element_list, depth = queue.popleft()
+            for element in nested_element_list:
+                if element.isInteger():
+                    total_sum += element.getInteger() * depth
+                else:
+                    queue.append((element.getList(), depth + 1))
+        return total_sum
+    
+    def depthSumRecursive(self, nested_list: List[NestedInteger]) -> int:
         """
         Ideas.
         Idea 1. Recursion + depth tracking
