@@ -1,5 +1,5 @@
 class Solution:
-    def largestDivisibleSubset(self, nums: List[int]) -> List[int]:
+    def largestDivisibleSubset1(self, nums: List[int]) -> List[int]:
         """
         Approach 1:
         sort the input
@@ -25,5 +25,21 @@ class Solution:
             subsets[num1] = max_subset
             
         return max(subsets.values(), key=len)
-            
-            
+    
+    def largestDivisibleSubset(self, nums: List[int]) -> List[int]:
+        asc_nums = sorted(nums)
+        size = len(nums)
+        dp = [set() for _ in range(size)]
+        max_subset = set()
+        
+        for i in range(size):
+            first_num = asc_nums[i]
+            for j in range(i):
+                second_num = asc_nums[j]
+                if first_num % second_num == 0:
+                    dp[i] = max([dp[i], dp[j]], key=len)
+                    
+            dp[i] = dp[i] | {first_num}
+            max_subset = max([max_subset, dp[i]], key=len)
+                
+        return max_subset
