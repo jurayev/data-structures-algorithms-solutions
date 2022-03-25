@@ -9,7 +9,27 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
+# Ex 1.
+#         -10 -> -3 -> 0 -> 5 -> 9 -> null
+#        
+#               0
+#             /   \
+#           -10     5
+#              \     \
+#               -3     9
+#        
+# Ex 2.     
+#         -10 -> -4 -> -3 -> 0 -> 4 -> 4 -> 5 -> 9 -> null
+#        
+#               0
+#             /     \
+#           -4        5
+#         /    \    /   \
+#       -10     -3 4      6
+#                          \ 
+#                            9
 class Solution:
+    ############################################# Sol 1 # Time O(N), Space(logN)
     def sortedListToBST(self, head: Optional[ListNode]) -> Optional[TreeNode]:
         self.head = head
         node = head
@@ -33,7 +53,7 @@ class Solution:
         tree.left = left_tree
         tree.right = right_tree
         return tree
-        
+    ################################################## Sol 2 # Time (3N) Space (N) 
     def sortedListToBST1(self, head: Optional[ListNode]) -> Optional[TreeNode]:
         """
         [-10,-3,0,5,9]
