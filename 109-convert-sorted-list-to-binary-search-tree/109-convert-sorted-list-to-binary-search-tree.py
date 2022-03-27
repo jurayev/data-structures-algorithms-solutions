@@ -10,18 +10,18 @@
 #         self.left = left
 #         self.right = right
 # Ex 1.
-#         -10 -> -3 -> 0 -> 5 -> 9 -> null
+#         -10 -> -3 -> 0 -> 5 -> 9 -> null - Sorted Linked List
 #        
-#               0
+#               0         -> Height-balanced BST
 #             /   \
 #           -10     5
 #              \     \
 #               -3     9
 #        
 # Ex 2.     
-#         -10 -> -4 -> -3 -> 0 -> 4 -> 4 -> 5 -> 9 -> null
+#         -10 -> -4 -> -3 -> 0 -> 4 -> 5 -> 6 -> 9 -> null - Sorted Linked List
 #        
-#               0
+#               0         > Height-balanced BST
 #             /     \
 #           -4        5
 #         /    \    /   \
@@ -41,11 +41,12 @@ class Solution:
         return self.make_bst(0, size-1)
         
     def make_bst(self, left_idx, right_idx):
+        
         if left_idx > right_idx:
             return None
         mid_idx = (left_idx + right_idx) // 2
         left_tree = self.make_bst(left_idx, mid_idx-1)
-        
+        # in-order traversal
         tree = TreeNode(self.head.val)
         self.head = self.head.next
         
