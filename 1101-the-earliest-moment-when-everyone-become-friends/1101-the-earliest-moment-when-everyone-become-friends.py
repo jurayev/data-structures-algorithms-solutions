@@ -47,7 +47,7 @@ class Solution:
             root_source = find(source)
             root_dest = find(dest)
             # nothing to do if both from the same component
-            if root_source == root_dest: return
+            if root_source == root_dest: return False
             # check which component is larger
             # merge smaller with larger
             if sizes[root_source] > sizes[root_dest]:
@@ -56,13 +56,11 @@ class Solution:
             else:
                 sets[root_dest] = root_source
                 sizes[root_dest] += sizes[root_source]
-            
-            # decrement components after merge
-            nonlocal num_components
-            num_components -= 1
+            return True
             
         for ts, source, dest in sorted_relations:
-            union(source, dest)
+            if union(source, dest):
+                num_components -= 1
             if num_components == 1:
                 return ts
             
