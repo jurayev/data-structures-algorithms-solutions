@@ -22,8 +22,11 @@ class Solution:
         0: 3
         3: 3
          0,1,2,3,4,5
-        [0,0,3,3,3,0]
-        
+        [0,1,2,3,3,5]
+        find(4) -> 4
+        find(4) -> 
+            find(3) -> 3
+        find(4) -> 3
         union(a,b):
             root_a = find(a)
             root_b = find(b)
@@ -36,16 +39,9 @@ class Solution:
         num_components = n
         
         def find(node):
-            # find the root of the node
-            root = node
-            while root != sets[root]:
-                root = sets[root]
-            # compressing the path
-            while root != node:
-                next_node = sets[node]
-                sets[node] = root
-                node = next_node
-            return root
+            if sets[node] != node:
+                sets[node] = find(sets[node])
+            return sets[node]
         
         def union(source, dest):
             root_source = find(source)
