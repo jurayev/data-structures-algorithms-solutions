@@ -34,37 +34,40 @@ class Solution:
         
         """
         sorted_relations = sorted(relations, key=lambda x: x[0])
-        sets = [i for i in range(n)]
-        sizes = {i: 1 for i in range(n)}
-        num_components = n
-        
-        def find(node):
-            if sets[node] != node:
-                sets[node] = find(sets[node])
-            return sets[node]
-        
-        def union(source, dest):
-            root_source = find(source)
-            root_dest = find(dest)
-            # nothing to do if both from the same component
-            if root_source == root_dest: return False
-            # check which component is larger
-            # merge smaller with larger
-            if sizes[root_source] > sizes[root_dest]:
-                sets[root_source] = root_dest
-                sizes[root_source] += sizes[root_dest]
-            else:
-                sets[root_dest] = root_source
-                sizes[root_dest] += sizes[root_source]
-            return True
+        union_find = UnionFind(n)
             
         for ts, source, dest in sorted_relations:
-            if union(source, dest):
-                num_components -= 1
-            if num_components == 1:
+            union_find.union(source, dest)
+            if union_find.size == 1:
                 return ts
             
         return -1
+    
+class UnionFind:
+    def __init__(self, size):
+        self.size = size
+        self.sets = [i for i in range(size)]
+        self.sizes = [1 for i in range(size)]
+    
+    def find(self, node):
+        # find the root with path compression
+        if self.sets[node] != node:
+            self.sets[node] = self.find(self.sets[node])
+        return self.sets[node]
+    
+    def union(self, source, dest):
+        source_root = self.find(source)
+        dest_root = self.find(dest)
+        if source_root == dest_root: return
+        # merge smaller to bigger sets
+        if self.sizes[source_root] > self.sizes[dest_root]:
+            self.sets[dest_root] = source_root
+            self.sizes[source_root] += self.sizes[dest_root]
+        else:
+            self.sets[source_root] = dest_root
+            self.sizes[dest_root] += self.sizes[source_root]
+            
+        self.size -= 1
             
         
         
