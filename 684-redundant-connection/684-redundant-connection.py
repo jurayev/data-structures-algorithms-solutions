@@ -11,12 +11,8 @@ class Solution:
         Time O(N)
         Space O(N)
         """
-        seen = set()
-        for source, dest in edges:
-            seen.add(source)
-            seen.add(dest)
-        n = len(seen)
-        sets = [i for i in range(n+1)]
+        rank = [0] * 1001
+        sets = [i for i in range(1001)]
         
         def find(node) -> int:
             # find parent/root node with path compression
@@ -28,7 +24,12 @@ class Solution:
             r_node1 = find(node1)
             r_node2 = find(node2)
             if r_node1 == r_node2: return False
-            sets[r_node1] = r_node2
+            if rank[r_node1] > rank[r_node2]:
+                sets[r_node2] = r_node1
+                rank[r_node1] += 1
+            else:
+                sets[r_node1] = r_node2
+                rank[r_node2] += 1
             return True
         
         for source, dest in edges:
