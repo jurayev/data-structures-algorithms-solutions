@@ -42,4 +42,31 @@ class Solution:
             # match(i+1, j+1) -> both matched
             match_one_char = i < len(text) and pattern[j] in ["?", text[i]]
             return match_one_char and match(i+1, j+1)
-        return match(0, 0)
+        #return match(0, 0)
+        
+        return self.match_pattern(text, pattern, 0, 0)
+    @lru_cache(None)
+    def match_pattern(self, string, pattern, s_idx, p_idx) -> bool:
+        if p_idx == len(pattern):
+            return s_idx == len(string)
+        
+        if s_idx == len(string) and pattern[p_idx] == "*":
+            return self.match_pattern(string, pattern, s_idx, p_idx+1)
+        if s_idx == len(string):
+            return False
+        
+        if pattern[p_idx] in ["?", string[s_idx]]:
+            matched = self.match_pattern(string, pattern, s_idx+1, p_idx+1)
+            if matched:
+                return True
+        if pattern[p_idx] == "*":
+            # skip
+            matched = self.match_pattern(string, pattern, s_idx, p_idx+1)
+            if matched:
+                return True
+            # take one
+            matched = self.match_pattern(string, pattern, s_idx+1, p_idx)
+            if matched:
+                return True
+
+        return False
