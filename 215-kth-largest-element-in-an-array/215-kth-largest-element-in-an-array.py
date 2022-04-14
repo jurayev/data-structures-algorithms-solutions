@@ -1,35 +1,54 @@
 class Solution:
     def findKthLargest(self, nums: List[int], k: int) -> int:
         """
-        Quick Select 
-        Time worst: O(N^2)
-        Time best: O(N)
+        Quickselect
         
-        [3,2,1,4,5,6]
+        [3,2,1,5,6,4], k = 4
+
+        k = 3
+        smaller = [3,2,1,4]
+        bigger = [5,6]
+        
+        [3,2,1,4]
+        k = 1
+        s = [1,2]
+        b = [3,4]
+        
+        [3,3,4]
+        k = 4     k = 1
+        s = [2,1]
+        e = [3,3]
+        b = [4]
+        
+        [2,1]  k = 1
+        s = []
+        e = [1]
+        b = [2]
+        
+        [2] = k = 1
+        s = []
+        e = [2]
+        b = []
+        
+        Time O(N^2)     with fixed pivot
+        Time O(N log N) with random pivot
+        Time O(N)       the average/best cases
+        
+        Space O(N log N)
         """
         return self.quick_select(nums, k)
-        
+    
     def quick_select(self, nums, k):
+        # split into 3 array by pivot
         pivot_num = random.choice(nums)
-        min_nums = [num for num in nums if num < pivot_num]
+        smaller_nums = [num for num in nums if num < pivot_num]
         equal_nums = [num for num in nums if num == pivot_num]
-        max_nums = [num for num in nums if num > pivot_num]
+        bigger_nums = [num for num in nums if num > pivot_num]
 
-        m_size, e_size = len(max_nums), len(equal_nums)
-        if k <= m_size:
-            return self.quick_select(max_nums, k)
-        if k > m_size + e_size:
-            return self.quick_select(min_nums, k - m_size - e_size)
-        return pivot_num
-        
-    def partition(self, nums, start, end):
-        p_index = end
-        i = start
-        for j in range(start, end):
-            if nums[j] < nums[p_index]:
-                nums[i], nums[j] = nums[j], nums[i]
-                i += 1
-                
-        nums[i], nums[p_index] = nums[p_index], nums[i]
-        return i
+        big_size, eq_size = len(bigger_nums), len(equal_nums)
+        if k <= big_size:                                     # check if in bigger
+            return self.quick_select(bigger_nums, k)
+        if k > big_size + eq_size:                            # check if in smaller
+            return self.quick_select(smaller_nums, k - big_size - eq_size)
+        return pivot_num                                      # element has to be in equal
         
