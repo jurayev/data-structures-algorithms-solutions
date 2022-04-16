@@ -30,7 +30,7 @@ class Solution:
         """
         
         counts = Counter(s)
-        max_count = max(counts.values())
+        max_count = 100000# max(counts.values())
         buckets = [[] for _ in range(max_count+1)]
         for letter, count in counts.items():
             buckets[count].append(letter)
