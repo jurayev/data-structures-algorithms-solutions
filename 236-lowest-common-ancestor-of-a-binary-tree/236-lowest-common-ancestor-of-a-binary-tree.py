@@ -10,7 +10,7 @@ class Solution:
         if not root:
             return None
         
-        if root.val == p.val or root.val == q.val:
+        if root.val in [p.val, q.val]:
             return root
         
         left_lca = self.lowestCommonAncestor(root.left, p, q)
