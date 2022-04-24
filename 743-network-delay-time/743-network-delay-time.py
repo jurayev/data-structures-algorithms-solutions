@@ -31,3 +31,6 @@ class Solution:
             if cost == float("inf"):
                 return -1
         return max_time
+    
+    def bellmanford(self, graph, total_nodes):
+        pass
