@@ -5,7 +5,8 @@ class Solution:
         
         for source, dest, time in times:
             graph[source].append((time, dest))
-        return self.djikstra(graph, k, n)
+        return self.bellmanford(graph, k, n)
+        #return self.djikstra(graph, k, n)
         
         
     def djikstra(self, graph, start_node, total_nodes):
@@ -32,5 +33,21 @@ class Solution:
                 return -1
         return max_time
     
-    def bellmanford(self, graph, total_nodes):
-        pass
+    def bellmanford(self, graph, start_node, total_nodes):
+        """
+        from: [[cost,to],[cost,to]]
+        """
+        costs = [float(inf) for _ in range(total_nodes+1)]
+        costs[start_node] = 0
+        costs[0] = 0
+        for i in range(1, total_nodes+1):
+            for source in range(1, total_nodes+1):
+                for cost, dest in graph[source]:
+                    new_dist = costs[source] + cost
+                    # relax the edge
+                    costs[dest] = min(costs[dest], new_dist)     
+        max_cost = max(costs)
+        return -1 if max_cost == float(inf) else max_cost
+                
+        
+        
