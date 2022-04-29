@@ -42,14 +42,7 @@ class Solution:
             return
         board[x][y] = "B"
         
-        self.dfs(board, x+1, y)
-        self.dfs(board, x-1, y)
-        self.dfs(board, x, y+1)
-        self.dfs(board, x, y-1)
-        
-        self.dfs(board, x-1, y-1)
-        self.dfs(board, x-1, y+1)
-        self.dfs(board, x+1, y-1)
-        self.dfs(board, x+1, y+1)
+        for dirx, diry in dirs:
+            self.dfs(board, x+dirx, y+diry)
         
         return 0
