@@ -1,7 +1,7 @@
 class Solution:
     def trap(self, height: List[int]) -> int:
-        #return self.dp_solution(height)
-        return self.two_pointers_solution(height)
+        return self.dp_solution(height)
+        #return self.two_pointers_solution(height)
         
         
     def dp_solution(self, heights):
