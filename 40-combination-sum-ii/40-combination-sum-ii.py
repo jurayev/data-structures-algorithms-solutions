@@ -25,15 +25,15 @@ class Solution:
                     combs.append(list(curr))
                 return
             
-            idj = idx
-            while idj < len(candidates):
+            prev_candidate = float("-inf")
+            for idj in range(idx, len(candidates)):
+                if candidates[idj] == prev_candidate:
+                    continue
                 curr.append(candidates[idj])
                 generate(idj+1, target-candidates[idj], curr)
                 curr.pop()
-                
-                while idj+1 < len(candidates) and candidates[idj] == candidates[idj+1]:
-                    idj += 1
-                idj += 1
+                prev_candidate = candidates[idj]
+
                 
                 
                 
