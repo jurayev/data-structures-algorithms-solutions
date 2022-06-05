@@ -1,3 +1,21 @@
+class MyCalendar:
+    def __init__(self):
+        self.calendar = []
+
+    def book(self, start: int, end: int) -> bool:
+        bisect.insort(self.calendar, (start, 1))
+        bisect.insort(self.calendar, (end, -1))
+        
+        booked = 0
+        for time, freq in self.calendar:
+            booked += freq
+            if booked == 2:
+                self.calendar.remove((start, 1))
+                self.calendar.remove((end, -1))
+                return False
+        return True
+
+
 class Node:
     def __init__(self, start, end):
         self.start = start
@@ -29,7 +47,7 @@ class Tree:
         else:
             return False
         
-class MyCalendar:
+class _MyCalendar:
     """[20,25]
     
            [10,20]
