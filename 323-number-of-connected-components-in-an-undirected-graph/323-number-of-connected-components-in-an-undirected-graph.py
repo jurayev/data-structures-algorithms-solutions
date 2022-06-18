@@ -9,9 +9,21 @@ class Solution:
         visited = set()
         for node in range(n):
             if node not in visited:
-                self.dfs_iterative(node, graph, visited)
+                self.bfs(node, graph, visited)
                 components += 1
         return components
+    
+    def bfs(self, source, graph, visited):
+        
+        queue = deque([source])
+        while queue:
+            source = queue.popleft()
+            visited.add(source)
+            for dest in graph[source]:
+                if dest not in visited:
+                    queue.append(dest)
+        
+        
     
     def dfs_iterative(self, source, graph, visited):
         
