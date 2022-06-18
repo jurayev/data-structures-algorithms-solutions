@@ -8,7 +8,6 @@ class Codec:
         temp = []
         for string in strs:
             temp.append(string.replace("#", "##"))
-        print(" # ".join(temp))
         return " # ".join(temp)
         
 
