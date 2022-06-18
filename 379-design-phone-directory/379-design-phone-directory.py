@@ -1,21 +1,23 @@
 class PhoneDirectory:
 
     def __init__(self, maxNumbers: int):
-        self.max_numbers = maxNumbers
-        self.numbers = [True for _ in range(maxNumbers)]
+        self.free = deque([i for i in range(maxNumbers)])
+        self.numbers = set([i for i in range(maxNumbers)])
 
     def get(self) -> int:
-        for i in range(self.max_numbers):
-            if self.numbers[i]:
-                self.numbers[i] = False
-                return i
-        return -1
+        if not self.free:
+            return -1
+        reserved = self.free.popleft()
+        self.numbers.remove(reserved)
+        return reserved
 
     def check(self, number: int) -> bool:
-        return self.numbers[number]
+        return number in self.numbers
 
     def release(self, number: int) -> None:
-        self.numbers[number] = True
+        if not self.check(number):
+            self.numbers.add(number)
+            self.free.append(number)
 
 
 # Your PhoneDirectory object will be instantiated and called as such:
