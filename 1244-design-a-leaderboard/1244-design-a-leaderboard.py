@@ -18,8 +18,13 @@ class Leaderboard:
         self.scores[playerId] += score
 
     def top(self, K: int) -> int:
-        top_k = sorted(self.scores.values())[-K:]
-        return sum(top_k)
+        scores = list(self.scores.values())
+        heap = [scores[i] for i in range(0, K)]
+        heapify(heap)
+        for i in range(K, len(scores)):
+            smallest = heappop(heap)
+            heappush(heap, max(scores[i], smallest))
+        return sum(heap)
 
     def reset(self, playerId: int) -> None:
         self.scores[playerId] = 0
