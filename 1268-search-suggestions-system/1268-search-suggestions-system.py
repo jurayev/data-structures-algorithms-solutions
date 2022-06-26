@@ -1,7 +1,8 @@
 class Trie:
     
-    def __init__(self,):
+    def __init__(self, top_k=3):
         self.trie = {}
+        self.top_k = top_k
         
         
     def insert(self, word):
@@ -11,9 +12,8 @@ class Trie:
                 node[char] = {}
             node = node[char]
             if "*" not in node:
-                node["*"] = []
-            node["*"].append(word)
-            node["*"].sort()
+                node["*"] = deque([], maxlen=self.top_k)
+            node["*"].appendleft(word)
     
     def search(self, word, top_k=3):
         words = []
@@ -26,7 +26,7 @@ class Trie:
                 node = {}
                 continue
             node = node[char]
-            best_matched_words = node["*"][:top_k]
+            best_matched_words = node["*"]
             words.append(best_matched_words)
         return words
 
@@ -34,7 +34,7 @@ class Solution:
     def suggestedProducts(self, products: List[str], searchWord: str) -> List[List[str]]:
         
         trie = Trie()
-        for word in products:
+        for word in sorted(products, reverse=True):
             trie.insert(word)
             
         return trie.search(searchWord)
