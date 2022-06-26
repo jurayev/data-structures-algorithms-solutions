@@ -9,15 +9,14 @@ class Solution:
         """
         
         dirs = path.split("/")
-        dirs = [d for d in dirs if d]
+        dirs = [d for d in dirs if d and d != "."]
         
         final_path = []
         
         for d in dirs:
-            if d == ".." and final_path:
-                final_path.pop()
-            elif d in [".", ".."]:
-                continue
+            if d == "..":
+                if final_path:
+                    final_path.pop()
             else:
                 final_path.append(d)      
         return "/" + "/".join(final_path)
